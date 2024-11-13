@@ -172,9 +172,9 @@ INSERT INTO "public"."lists" ("created_at", "name", "content", "id") VALUES
 -- Data for Name: devices; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "public"."devices" ("id", "created_at", "name", "android_id", "branch_id", "list_id") VALUES
-	('bace098a-3221-47b5-828f-5e33bc7d2e99', '2024-11-12 05:04:37.768436+00', 'Device 1', 'android_001', '2cf52926-d0b3-4c17-9906-298f59b940a6', '9c4ff48d-c040-4eb9-a850-111176f015b6'),
-	('00d0155f-b38e-435c-b999-f320559f8700', '2024-11-12 05:04:37.768436+00', 'Device 2', 'android_002', '6459cb87-939e-4dec-862b-0cb7cf8adcda', '3d9ad1f9-a1f7-4ef6-87fb-8b3f585a5b68');
+INSERT INTO "public"."devices" ("id", "created_at", "name", "android_id", "branch_id", "list_id", "status") VALUES
+	('bace098a-3221-47b5-828f-5e33bc7d2e99', '2024-11-12 05:04:37.768436+00', 'Device 1', 'android_001', '2cf52926-d0b3-4c17-9906-298f59b940a6', '9c4ff48d-c040-4eb9-a850-111176f015b6', 'initialized'),
+	('00d0155f-b38e-435c-b999-f320559f8700', '2024-11-12 05:04:37.768436+00', 'Device 2', 'android_002', '6459cb87-939e-4dec-862b-0cb7cf8adcda', '3d9ad1f9-a1f7-4ef6-87fb-8b3f585a5b68', 'initialized');
 
 
 --

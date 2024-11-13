@@ -10,8 +10,6 @@
     "lib": [
       "deno.ns",
       "dom"
-    ],
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    ]
   }
 }
