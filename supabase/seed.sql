@@ -1,0 +1,260 @@
+SET session_replication_role = replica;
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 15.6
+-- Dumped by pg_dump version 15.7 (Ubuntu 15.7-1.pgdg20.04+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Data for Name: audit_log_entries; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created_at", "ip_address") VALUES
+	('00000000-0000-0000-0000-000000000000', 'fab3f5ba-20d8-408b-af1e-c2aef3cf2f3e', '{"action":"user_signedup","actor_id":"00000000-0000-0000-0000-000000000000","actor_username":"service_role","actor_via_sso":false,"log_type":"team","traits":{"user_email":"javierpacareu@gmail.com","user_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","user_phone":""}}', '2024-11-13 23:53:06.082875+00', ''),
+	('00000000-0000-0000-0000-000000000000', '79d7f3d1-0be4-4fc7-bb2a-50acf77957a3', '{"action":"login","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-11-14 03:05:04.43862+00', ''),
+	('00000000-0000-0000-0000-000000000000', '9d66a18e-9ffe-4d73-9306-b7067403ca12', '{"action":"token_refreshed","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-14 23:25:48.168334+00', ''),
+	('00000000-0000-0000-0000-000000000000', '86814b07-cde8-4d78-9891-a4babbcb08dc', '{"action":"token_revoked","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-14 23:25:48.174241+00', ''),
+	('00000000-0000-0000-0000-000000000000', '9b2300b1-b93f-48f9-a6a3-9591c8d472ec', '{"action":"login","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-11-14 23:28:28.507337+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'bbec977d-1d60-4881-9c46-5902a62d890b', '{"action":"token_refreshed","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-15 04:23:29.985365+00', ''),
+	('00000000-0000-0000-0000-000000000000', '0c22b2f9-5205-49bb-ad27-ec298dd2ef1b', '{"action":"token_revoked","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-15 04:23:30.007478+00', ''),
+	('00000000-0000-0000-0000-000000000000', '6f65483a-7e4f-45bc-b50d-388337781fca', '{"action":"token_refreshed","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-15 06:17:54.877106+00', ''),
+	('00000000-0000-0000-0000-000000000000', '36180e98-7147-4348-b9c2-6edae2dc2f9e', '{"action":"token_revoked","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-15 06:17:54.884458+00', ''),
+	('00000000-0000-0000-0000-000000000000', '30415a29-188b-4c1c-90a8-96fe13d537c2', '{"action":"token_refreshed","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-15 21:33:57.323402+00', ''),
+	('00000000-0000-0000-0000-000000000000', '7a528c62-0b78-4307-bcf6-bfa5d8468c50', '{"action":"token_revoked","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-15 21:33:57.349982+00', ''),
+	('00000000-0000-0000-0000-000000000000', '06b39c2f-82b1-4a14-a89a-cd4507537006', '{"action":"token_refreshed","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-16 22:53:10.848372+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'f06b1a28-e6b6-4d15-85de-38bc82509da5', '{"action":"token_revoked","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-16 22:53:10.85782+00', '');
+
+
+--
+-- Data for Name: flow_state; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+INSERT INTO "auth"."users" ("instance_id", "id", "aud", "role", "email", "encrypted_password", "email_confirmed_at", "invited_at", "confirmation_token", "confirmation_sent_at", "recovery_token", "recovery_sent_at", "email_change_token_new", "email_change", "email_change_sent_at", "last_sign_in_at", "raw_app_meta_data", "raw_user_meta_data", "is_super_admin", "created_at", "updated_at", "phone", "phone_confirmed_at", "phone_change", "phone_change_token", "phone_change_sent_at", "email_change_token_current", "email_change_confirm_status", "banned_until", "reauthentication_token", "reauthentication_sent_at", "is_sso_user", "deleted_at", "is_anonymous") VALUES
+	('00000000-0000-0000-0000-000000000000', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', 'authenticated', 'authenticated', 'javierpacareu@gmail.com', '$2a$10$ga0uXyeW29G4SGvkkJUPZeJCenTWO0ELJrJRdivb1SKwpnnmJVGYi', '2024-11-13 23:53:06.094413+00', NULL, '', NULL, '', NULL, '', '', NULL, '2024-11-14 23:28:28.513286+00', '{"provider": "email", "providers": ["email"]}', '{}', NULL, '2024-11-13 23:53:06.057554+00', '2024-11-16 22:53:10.866908+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false);
+
+
+--
+-- Data for Name: identities; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+INSERT INTO "auth"."identities" ("provider_id", "user_id", "identity_data", "provider", "last_sign_in_at", "created_at", "updated_at", "id") VALUES
+	('5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '{"sub": "5f206c96-c10c-4ac9-a607-3dc55d76ce9f", "email": "javierpacareu@gmail.com", "email_verified": false, "phone_verified": false}', 'email', '2024-11-13 23:53:06.080177+00', '2024-11-13 23:53:06.081212+00', '2024-11-13 23:53:06.081212+00', 'cac0797f-eb7c-49a3-ba6a-de837edca0b1');
+
+
+--
+-- Data for Name: instances; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+
+
+--
+-- Data for Name: sessions; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+INSERT INTO "auth"."sessions" ("id", "user_id", "created_at", "updated_at", "factor_id", "aal", "not_after", "refreshed_at", "user_agent", "ip", "tag") VALUES
+	('4b3fb01c-c02c-426c-8073-bfac22921f9d', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '2024-11-14 03:05:04.44939+00', '2024-11-14 23:25:48.191381+00', NULL, 'aal1', NULL, '2024-11-14 23:25:48.19131', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', '68.8.77.173', NULL),
+	('648a8d11-37cd-4334-bdc6-85f3a63530a2', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '2024-11-14 23:28:28.513379+00', '2024-11-16 22:53:10.872893+00', NULL, 'aal1', NULL, '2024-11-16 22:53:10.872807', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', '68.8.77.173', NULL);
+
+
+--
+-- Data for Name: mfa_amr_claims; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+INSERT INTO "auth"."mfa_amr_claims" ("session_id", "created_at", "updated_at", "authentication_method", "id") VALUES
+	('4b3fb01c-c02c-426c-8073-bfac22921f9d', '2024-11-14 03:05:04.461593+00', '2024-11-14 03:05:04.461593+00', 'password', 'ac78345c-dde3-4958-86fa-d4c1446dcb4f'),
+	('648a8d11-37cd-4334-bdc6-85f3a63530a2', '2024-11-14 23:28:28.519399+00', '2024-11-14 23:28:28.519399+00', 'password', '9bee42cc-b9ca-469f-8e36-f355a7ef4bbb');
+
+
+--
+-- Data for Name: mfa_factors; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+
+
+--
+-- Data for Name: mfa_challenges; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+
+
+--
+-- Data for Name: one_time_tokens; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+
+
+--
+-- Data for Name: refresh_tokens; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+INSERT INTO "auth"."refresh_tokens" ("instance_id", "id", "token", "user_id", "revoked", "created_at", "updated_at", "parent", "session_id") VALUES
+	('00000000-0000-0000-0000-000000000000', 1, 'A4G5F9UNIN6DDuIiKggxAg', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', true, '2024-11-14 03:05:04.454246+00', '2024-11-14 23:25:48.174754+00', NULL, '4b3fb01c-c02c-426c-8073-bfac22921f9d'),
+	('00000000-0000-0000-0000-000000000000', 2, 'PYK7yn4nTTfwNw4E_gLp1g', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', false, '2024-11-14 23:25:48.180789+00', '2024-11-14 23:25:48.180789+00', 'A4G5F9UNIN6DDuIiKggxAg', '4b3fb01c-c02c-426c-8073-bfac22921f9d'),
+	('00000000-0000-0000-0000-000000000000', 3, 'gy1heMer-a5Ic9DeXf_Lhw', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', true, '2024-11-14 23:28:28.516774+00', '2024-11-15 04:23:30.008111+00', NULL, '648a8d11-37cd-4334-bdc6-85f3a63530a2'),
+	('00000000-0000-0000-0000-000000000000', 4, '3lZqR6Bfodq5jTet9wnPLA', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', true, '2024-11-15 04:23:30.019303+00', '2024-11-15 06:17:54.88495+00', 'gy1heMer-a5Ic9DeXf_Lhw', '648a8d11-37cd-4334-bdc6-85f3a63530a2'),
+	('00000000-0000-0000-0000-000000000000', 5, 'CORsiBWWvLcdc1eS_uE2Ug', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', true, '2024-11-15 06:17:54.886813+00', '2024-11-15 21:33:57.350596+00', '3lZqR6Bfodq5jTet9wnPLA', '648a8d11-37cd-4334-bdc6-85f3a63530a2'),
+	('00000000-0000-0000-0000-000000000000', 6, 'sEnckKqLE5JDmJgR7oX3EQ', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', true, '2024-11-15 21:33:57.358058+00', '2024-11-16 22:53:10.858341+00', 'CORsiBWWvLcdc1eS_uE2Ug', '648a8d11-37cd-4334-bdc6-85f3a63530a2'),
+	('00000000-0000-0000-0000-000000000000', 7, 'WXyd_iT7xAm0qTMbCra74A', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', false, '2024-11-16 22:53:10.86342+00', '2024-11-16 22:53:10.86342+00', 'sEnckKqLE5JDmJgR7oX3EQ', '648a8d11-37cd-4334-bdc6-85f3a63530a2');
+
+
+--
+-- Data for Name: sso_providers; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+
+
+--
+-- Data for Name: saml_providers; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+
+
+--
+-- Data for Name: saml_relay_states; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+
+
+--
+-- Data for Name: sso_domains; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
+--
+
+
+
+--
+-- Data for Name: key; Type: TABLE DATA; Schema: pgsodium; Owner: supabase_admin
+--
+
+
+
+--
+-- Data for Name: organizations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO "public"."organizations" ("id", "created_at", "name") VALUES
+	('8392f809-ed88-472b-9572-62fc8b4a6092', '2024-11-12 05:04:37.768436+00', 'Organization A'),
+	('dcd3a42d-8808-4063-ad64-5a433a5ec214', '2024-11-12 05:04:37.768436+00', 'Organization B');
+
+
+--
+-- Data for Name: branches; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO "public"."branches" ("id", "created_at", "organization_id", "name", "places_id") VALUES
+	('2cf52926-d0b3-4c17-9906-298f59b940a6', '2024-11-12 05:04:37.768436+00', '8392f809-ed88-472b-9572-62fc8b4a6092', 'Branch 1', NULL),
+	('6459cb87-939e-4dec-862b-0cb7cf8adcda', '2024-11-12 05:04:37.768436+00', 'dcd3a42d-8808-4063-ad64-5a433a5ec214', 'Branch 2', NULL);
+
+
+--
+-- Data for Name: ads; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO "public"."ads" ("id", "created_at", "name", "media_id", "provider", "branch_id") VALUES
+	('86b770e9-ee13-4342-a3ce-283b6d28bf4e', '2024-11-12 05:04:37.768436+00', 'Ad 1', 'media_101', 'youtube', '2cf52926-d0b3-4c17-9906-298f59b940a6'),
+	('5ce2d861-934f-44aa-926c-a5338b600578', '2024-11-12 05:04:37.768436+00', 'Ad 2', 'media_102', 'youtube', '6459cb87-939e-4dec-862b-0cb7cf8adcda');
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO "public"."users" ("id", "organization_id", "created_at", "name", "email") VALUES
+	('3de32793-5341-4b69-8dbf-d74be268328d', 'dcd3a42d-8808-4063-ad64-5a433a5ec214', '2024-11-12 05:04:37.768436+00', 'Jane Smith', 'jane.smith@example.com'),
+	('5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '8392f809-ed88-472b-9572-62fc8b4a6092', '2024-11-12 05:04:37.768436+00', 'Javier Pacareu', 'javierpacareu@gmail.com');
+
+
+--
+-- Data for Name: contents; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO "public"."contents" ("id", "created_at", "media_id", "provider", "user_id") VALUES
+	('e0fe55cd-c18d-4adc-b058-442c6d90d5e0', '2024-11-12 05:04:37.768436+00', 'media_002', 'youtube', '3de32793-5341-4b69-8dbf-d74be268328d'),
+	('26187538-3456-4c3a-8ff5-95eaf61caf49', '2024-11-12 05:04:37.768436+00', 'media_001', 'youtube', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f');
+
+
+--
+-- Data for Name: lists; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO "public"."lists" ("created_at", "name", "content", "id") VALUES
+	('2024-11-12 05:04:37.768436+00', 'List 1', '{"Item 1","Item 2","Item 3"}', '9c4ff48d-c040-4eb9-a850-111176f015b6'),
+	('2024-11-12 05:04:37.768436+00', 'List 2', '{"Task A","Task B"}', '3d9ad1f9-a1f7-4ef6-87fb-8b3f585a5b68');
+
+
+--
+-- Data for Name: devices; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO "public"."devices" ("id", "created_at", "name", "android_id", "branch_id", "list_id", "status", "code_value", "code_exp") VALUES
+	('00d0155f-b38e-435c-b999-f320559f8700', '2024-11-12 05:04:37.768436+00', 'Device 2', 'android_002', '6459cb87-939e-4dec-862b-0cb7cf8adcda', '3d9ad1f9-a1f7-4ef6-87fb-8b3f585a5b68', 'initialized', NULL, NULL),
+	('bace098a-3221-47b5-828f-5e33bc7d2e99', '2024-11-12 05:04:37.768436+00', 'Device 1', 'android_001', '2cf52926-d0b3-4c17-9906-298f59b940a6', '9c4ff48d-c040-4eb9-a850-111176f015b6', 'initialized', '41701', '2024-11-18 09:29:17.018879+00');
+
+
+--
+-- Data for Name: buckets; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
+--
+
+
+
+--
+-- Data for Name: objects; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
+--
+
+
+
+--
+-- Data for Name: s3_multipart_uploads; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
+--
+
+
+
+--
+-- Data for Name: s3_multipart_uploads_parts; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
+--
+
+
+
+--
+-- Data for Name: secrets; Type: TABLE DATA; Schema: vault; Owner: supabase_admin
+--
+
+
+
+--
+-- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: supabase_auth_admin
+--
+
+SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 7, true);
+
+
+--
+-- Name: key_key_id_seq; Type: SEQUENCE SET; Schema: pgsodium; Owner: supabase_admin
+--
+
+SELECT pg_catalog.setval('"pgsodium"."key_key_id_seq"', 1, false);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+RESET ALL;

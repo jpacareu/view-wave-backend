@@ -1,5 +1,6 @@
 # view-wave-backend
 
+```bash
 supabase functions serve
 
 supabase link
@@ -12,10 +13,10 @@ supabase stop --all --no-backup
 
 supabase projects list
 
-supabase gen types typescript --project-id "nceyjyktohosdlvbkwca" --schema
-public > supabase/types.ts
+supabase gen types typescript --project-id "nceyjyktohosdlvbkwca" --schema public > supabase/types.ts
 
 supabase db dump --data-only > supabase/seed.sql
+```
 
 Migration:
 
