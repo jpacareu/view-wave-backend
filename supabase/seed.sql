@@ -35,7 +35,15 @@ INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created
 	('00000000-0000-0000-0000-000000000000', '30415a29-188b-4c1c-90a8-96fe13d537c2', '{"action":"token_refreshed","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-15 21:33:57.323402+00', ''),
 	('00000000-0000-0000-0000-000000000000', '7a528c62-0b78-4307-bcf6-bfa5d8468c50', '{"action":"token_revoked","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-15 21:33:57.349982+00', ''),
 	('00000000-0000-0000-0000-000000000000', '06b39c2f-82b1-4a14-a89a-cd4507537006', '{"action":"token_refreshed","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-16 22:53:10.848372+00', ''),
-	('00000000-0000-0000-0000-000000000000', 'f06b1a28-e6b6-4d15-85de-38bc82509da5', '{"action":"token_revoked","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-16 22:53:10.85782+00', '');
+	('00000000-0000-0000-0000-000000000000', 'f06b1a28-e6b6-4d15-85de-38bc82509da5', '{"action":"token_revoked","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-16 22:53:10.85782+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'd595f859-45fa-4c76-b72d-37381d0eea1d', '{"action":"user_signedup","actor_id":"053ea79d-8b73-471a-8ec8-462990b64815","actor_name":"Orelvis Lago","actor_username":"orelvisdev@gmail.com","actor_via_sso":false,"log_type":"team","traits":{"provider":"google"}}', '2024-11-18 17:26:39.637616+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'ca65e3d6-9af4-4ac0-bbf6-7364c65141fa', '{"action":"login","actor_id":"053ea79d-8b73-471a-8ec8-462990b64815","actor_name":"Orelvis Lago","actor_username":"orelvisdev@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"google"}}', '2024-11-18 17:29:02.667077+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'aceebf68-79a7-4861-9cdc-c5ec486a6320', '{"action":"token_refreshed","actor_id":"053ea79d-8b73-471a-8ec8-462990b64815","actor_name":"Orelvis Lago","actor_username":"orelvisdev@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-18 20:46:28.920724+00', ''),
+	('00000000-0000-0000-0000-000000000000', '8c5a0032-479d-4239-ae99-a0ec395a9420', '{"action":"token_revoked","actor_id":"053ea79d-8b73-471a-8ec8-462990b64815","actor_name":"Orelvis Lago","actor_username":"orelvisdev@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-18 20:46:28.92469+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'd232f269-330c-4f9e-87bf-a73bfc406cff', '{"action":"token_refreshed","actor_id":"053ea79d-8b73-471a-8ec8-462990b64815","actor_name":"Orelvis Lago","actor_username":"orelvisdev@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-18 20:46:28.94968+00', ''),
+	('00000000-0000-0000-0000-000000000000', '13742cb8-0f6a-4d33-8399-d069e2833cb1', '{"action":"token_refreshed","actor_id":"053ea79d-8b73-471a-8ec8-462990b64815","actor_name":"Orelvis Lago","actor_username":"orelvisdev@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-18 21:34:30.155044+00', ''),
+	('00000000-0000-0000-0000-000000000000', '10a213e5-5665-4dea-a45b-96fb100f55ce', '{"action":"token_revoked","actor_id":"053ea79d-8b73-471a-8ec8-462990b64815","actor_name":"Orelvis Lago","actor_username":"orelvisdev@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-18 21:34:30.155993+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'f71a8dd0-5762-4d11-8033-21a89c87bdea', '{"action":"logout","actor_id":"053ea79d-8b73-471a-8ec8-462990b64815","actor_name":"Orelvis Lago","actor_username":"orelvisdev@gmail.com","actor_via_sso":false,"log_type":"account"}', '2024-11-18 21:34:51.037506+00', '');
 
 
 --
@@ -49,6 +57,7 @@ INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created
 --
 
 INSERT INTO "auth"."users" ("instance_id", "id", "aud", "role", "email", "encrypted_password", "email_confirmed_at", "invited_at", "confirmation_token", "confirmation_sent_at", "recovery_token", "recovery_sent_at", "email_change_token_new", "email_change", "email_change_sent_at", "last_sign_in_at", "raw_app_meta_data", "raw_user_meta_data", "is_super_admin", "created_at", "updated_at", "phone", "phone_confirmed_at", "phone_change", "phone_change_token", "phone_change_sent_at", "email_change_token_current", "email_change_confirm_status", "banned_until", "reauthentication_token", "reauthentication_sent_at", "is_sso_user", "deleted_at", "is_anonymous") VALUES
+	('00000000-0000-0000-0000-000000000000', '053ea79d-8b73-471a-8ec8-462990b64815', 'authenticated', 'authenticated', 'orelvisdev@gmail.com', NULL, '2024-11-18 17:26:39.639926+00', NULL, '', NULL, '', NULL, '', '', NULL, '2024-11-18 17:29:02.667959+00', '{"provider": "google", "providers": ["google"]}', '{"iss": "https://accounts.google.com", "sub": "113022781263694874158", "name": "Orelvis Lago", "email": "orelvisdev@gmail.com", "picture": "https://lh3.googleusercontent.com/a/ACg8ocK9VH_YTCxUqTBt5HEwLHJqdnzT-5UDZeaOjG8sPbZEG-EXhw=s96-c", "full_name": "Orelvis Lago", "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocK9VH_YTCxUqTBt5HEwLHJqdnzT-5UDZeaOjG8sPbZEG-EXhw=s96-c", "provider_id": "113022781263694874158", "email_verified": true, "phone_verified": false}', NULL, '2024-11-18 17:26:39.617568+00', '2024-11-18 21:34:30.158808+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false),
 	('00000000-0000-0000-0000-000000000000', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', 'authenticated', 'authenticated', 'javierpacareu@gmail.com', '$2a$10$ga0uXyeW29G4SGvkkJUPZeJCenTWO0ELJrJRdivb1SKwpnnmJVGYi', '2024-11-13 23:53:06.094413+00', NULL, '', NULL, '', NULL, '', '', NULL, '2024-11-14 23:28:28.513286+00', '{"provider": "email", "providers": ["email"]}', '{}', NULL, '2024-11-13 23:53:06.057554+00', '2024-11-16 22:53:10.866908+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false);
 
 
@@ -57,7 +66,8 @@ INSERT INTO "auth"."users" ("instance_id", "id", "aud", "role", "email", "encryp
 --
 
 INSERT INTO "auth"."identities" ("provider_id", "user_id", "identity_data", "provider", "last_sign_in_at", "created_at", "updated_at", "id") VALUES
-	('5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '{"sub": "5f206c96-c10c-4ac9-a607-3dc55d76ce9f", "email": "javierpacareu@gmail.com", "email_verified": false, "phone_verified": false}', 'email', '2024-11-13 23:53:06.080177+00', '2024-11-13 23:53:06.081212+00', '2024-11-13 23:53:06.081212+00', 'cac0797f-eb7c-49a3-ba6a-de837edca0b1');
+	('5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '{"sub": "5f206c96-c10c-4ac9-a607-3dc55d76ce9f", "email": "javierpacareu@gmail.com", "email_verified": false, "phone_verified": false}', 'email', '2024-11-13 23:53:06.080177+00', '2024-11-13 23:53:06.081212+00', '2024-11-13 23:53:06.081212+00', 'cac0797f-eb7c-49a3-ba6a-de837edca0b1'),
+	('113022781263694874158', '053ea79d-8b73-471a-8ec8-462990b64815', '{"iss": "https://accounts.google.com", "sub": "113022781263694874158", "name": "Orelvis Lago", "email": "orelvisdev@gmail.com", "picture": "https://lh3.googleusercontent.com/a/ACg8ocK9VH_YTCxUqTBt5HEwLHJqdnzT-5UDZeaOjG8sPbZEG-EXhw=s96-c", "full_name": "Orelvis Lago", "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocK9VH_YTCxUqTBt5HEwLHJqdnzT-5UDZeaOjG8sPbZEG-EXhw=s96-c", "provider_id": "113022781263694874158", "email_verified": true, "phone_verified": false}', 'google', '2024-11-18 17:26:39.63341+00', '2024-11-18 17:26:39.633461+00', '2024-11-18 17:29:02.663013+00', 'dd2ba0dc-5f3a-4778-99be-4db5c0f4e78f');
 
 
 --
@@ -72,7 +82,8 @@ INSERT INTO "auth"."identities" ("provider_id", "user_id", "identity_data", "pro
 
 INSERT INTO "auth"."sessions" ("id", "user_id", "created_at", "updated_at", "factor_id", "aal", "not_after", "refreshed_at", "user_agent", "ip", "tag") VALUES
 	('4b3fb01c-c02c-426c-8073-bfac22921f9d', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '2024-11-14 03:05:04.44939+00', '2024-11-14 23:25:48.191381+00', NULL, 'aal1', NULL, '2024-11-14 23:25:48.19131', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', '68.8.77.173', NULL),
-	('648a8d11-37cd-4334-bdc6-85f3a63530a2', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '2024-11-14 23:28:28.513379+00', '2024-11-16 22:53:10.872893+00', NULL, 'aal1', NULL, '2024-11-16 22:53:10.872807', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', '68.8.77.173', NULL);
+	('648a8d11-37cd-4334-bdc6-85f3a63530a2', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '2024-11-14 23:28:28.513379+00', '2024-11-16 22:53:10.872893+00', NULL, 'aal1', NULL, '2024-11-16 22:53:10.872807', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', '68.8.77.173', NULL),
+	('8a15ff95-a764-4d1b-9223-eec745e5336f', '053ea79d-8b73-471a-8ec8-462990b64815', '2024-11-18 17:26:39.642687+00', '2024-11-18 17:26:39.642687+00', NULL, 'aal1', NULL, NULL, 'ktor-client', '64.201.138.246', NULL);
 
 
 --
@@ -81,7 +92,8 @@ INSERT INTO "auth"."sessions" ("id", "user_id", "created_at", "updated_at", "fac
 
 INSERT INTO "auth"."mfa_amr_claims" ("session_id", "created_at", "updated_at", "authentication_method", "id") VALUES
 	('4b3fb01c-c02c-426c-8073-bfac22921f9d', '2024-11-14 03:05:04.461593+00', '2024-11-14 03:05:04.461593+00', 'password', 'ac78345c-dde3-4958-86fa-d4c1446dcb4f'),
-	('648a8d11-37cd-4334-bdc6-85f3a63530a2', '2024-11-14 23:28:28.519399+00', '2024-11-14 23:28:28.519399+00', 'password', '9bee42cc-b9ca-469f-8e36-f355a7ef4bbb');
+	('648a8d11-37cd-4334-bdc6-85f3a63530a2', '2024-11-14 23:28:28.519399+00', '2024-11-14 23:28:28.519399+00', 'password', '9bee42cc-b9ca-469f-8e36-f355a7ef4bbb'),
+	('8a15ff95-a764-4d1b-9223-eec745e5336f', '2024-11-18 17:26:39.653776+00', '2024-11-18 17:26:39.653776+00', 'oauth', '3cb67976-75c9-437b-8a98-6c85961940a6');
 
 
 --
@@ -113,7 +125,8 @@ INSERT INTO "auth"."refresh_tokens" ("instance_id", "id", "token", "user_id", "r
 	('00000000-0000-0000-0000-000000000000', 4, '3lZqR6Bfodq5jTet9wnPLA', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', true, '2024-11-15 04:23:30.019303+00', '2024-11-15 06:17:54.88495+00', 'gy1heMer-a5Ic9DeXf_Lhw', '648a8d11-37cd-4334-bdc6-85f3a63530a2'),
 	('00000000-0000-0000-0000-000000000000', 5, 'CORsiBWWvLcdc1eS_uE2Ug', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', true, '2024-11-15 06:17:54.886813+00', '2024-11-15 21:33:57.350596+00', '3lZqR6Bfodq5jTet9wnPLA', '648a8d11-37cd-4334-bdc6-85f3a63530a2'),
 	('00000000-0000-0000-0000-000000000000', 6, 'sEnckKqLE5JDmJgR7oX3EQ', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', true, '2024-11-15 21:33:57.358058+00', '2024-11-16 22:53:10.858341+00', 'CORsiBWWvLcdc1eS_uE2Ug', '648a8d11-37cd-4334-bdc6-85f3a63530a2'),
-	('00000000-0000-0000-0000-000000000000', 7, 'WXyd_iT7xAm0qTMbCra74A', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', false, '2024-11-16 22:53:10.86342+00', '2024-11-16 22:53:10.86342+00', 'sEnckKqLE5JDmJgR7oX3EQ', '648a8d11-37cd-4334-bdc6-85f3a63530a2');
+	('00000000-0000-0000-0000-000000000000', 7, 'WXyd_iT7xAm0qTMbCra74A', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', false, '2024-11-16 22:53:10.86342+00', '2024-11-16 22:53:10.86342+00', 'sEnckKqLE5JDmJgR7oX3EQ', '648a8d11-37cd-4334-bdc6-85f3a63530a2'),
+	('00000000-0000-0000-0000-000000000000', 8, '1qut53Bejy-M5OLCGAAjpg', '053ea79d-8b73-471a-8ec8-462990b64815', false, '2024-11-18 17:26:39.6475+00', '2024-11-18 17:26:39.6475+00', NULL, '8a15ff95-a764-4d1b-9223-eec745e5336f');
 
 
 --
@@ -206,7 +219,7 @@ INSERT INTO "public"."lists" ("created_at", "name", "content", "id") VALUES
 
 INSERT INTO "public"."devices" ("id", "created_at", "name", "android_id", "branch_id", "list_id", "status", "code_value", "code_exp") VALUES
 	('00d0155f-b38e-435c-b999-f320559f8700', '2024-11-12 05:04:37.768436+00', 'Device 2', 'android_002', '6459cb87-939e-4dec-862b-0cb7cf8adcda', '3d9ad1f9-a1f7-4ef6-87fb-8b3f585a5b68', 'initialized', NULL, NULL),
-	('bace098a-3221-47b5-828f-5e33bc7d2e99', '2024-11-12 05:04:37.768436+00', 'Device 1', 'android_001', '2cf52926-d0b3-4c17-9906-298f59b940a6', '9c4ff48d-c040-4eb9-a850-111176f015b6', 'initialized', '41701', '2024-11-18 09:29:17.018879+00');
+	('bace098a-3221-47b5-828f-5e33bc7d2e99', '2024-11-12 05:04:37.768436+00', 'Device 1', 'android_001', '2cf52926-d0b3-4c17-9906-298f59b940a6', '9c4ff48d-c040-4eb9-a850-111176f015b6', 'initialized', '49686', '2024-11-18 09:57:22.959875+00');
 
 
 --
@@ -243,7 +256,7 @@ INSERT INTO "public"."devices" ("id", "created_at", "name", "android_id", "branc
 -- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: supabase_auth_admin
 --
 
-SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 7, true);
+SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 11, true);
 
 
 --

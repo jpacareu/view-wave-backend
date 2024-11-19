@@ -30,6 +30,7 @@ export abstract class BaseRepository<T extends TableName> {
             .select("*")
             .eq("id", id)
             .single();
+
         if (error) {
             if (error.message === "Row not found") return null;
             throw new Error(error.message);
@@ -43,7 +44,7 @@ export abstract class BaseRepository<T extends TableName> {
             item,
         ).single();
         if (error) throw new Error(error.message);
-        return data!;
+        return data;
     }
 
     // Update an existing record
@@ -54,7 +55,7 @@ export abstract class BaseRepository<T extends TableName> {
             .eq("id", id)
             .single();
         if (error) throw new Error(error.message);
-        return data!;
+        return data;
     }
 
     // Delete a record by its ID

@@ -3,14 +3,16 @@ import { DeviceRepository } from "../_repositories/device.ts";
 import { DEVICE_STATUS } from "../_shared/constants.ts";
 
 export default class StartupService {
-    private repository: DeviceRepository;
+    private deviceRepository: DeviceRepository;
 
     constructor(supabaseClient: SupabaseClient) {
-        this.repository = new DeviceRepository(supabaseClient);
+        this.deviceRepository = new DeviceRepository(supabaseClient);
     }
 
     startupByAndroidId = async (androidId: string) => {
-        const device = await this.repository.getDeviceByAndroidId(androidId);
+        const device = await this.deviceRepository.getDeviceByAndroidId(
+            androidId,
+        );
 
         if (!device?.length) {
             return ({
@@ -44,7 +46,7 @@ export default class StartupService {
             });
         }
 
-        const code = await this.repository.getCodeByAndroidId(androidId);
+        const code = await this.deviceRepository.getCodeByAndroidId(androidId);
 
         return ({
             event: "STARTUP",
