@@ -24,11 +24,28 @@ export class DeviceRepository extends BaseRepository<"devices"> {
 
     getCodeByAndroidId = async (
         androidId: string,
-    ): Promise<number> => {
+    ): Promise<string> => {
         const { data, error } = await this.supabase.rpc(
             "generate_and_update_code",
             { android_id: androidId },
         );
+
+        if (error) {
+            throw error;
+        }
+
+        return data;
+    };
+
+    getDeviceByCode = async (code: string) => {
+        const now = new Date().toISOString();
+        
+        const { data, error } = await this.supabase
+            .from("devices")
+            .select("id,status,code_exp")
+            .eq("code_value", `${code}`)
+            .gt("code_exp", now)
+            .maybeSingle();
 
         if (error) {
             throw error;

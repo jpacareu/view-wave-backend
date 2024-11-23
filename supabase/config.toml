@@ -257,3 +257,6 @@ s3_secret_key = "env(S3_SECRET_KEY)"
 
 [functions.startup]
 verify_jwt = false
+
+[functions.register]
+verify_jwt = true

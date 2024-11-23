@@ -1,6 +1,6 @@
 import { Hono } from "jsr:@hono/hono";
 import buildClient from "../_shared/supabase-client.ts";
-import StartupService, {} from "./service.ts";
+import StartupService from "./service.ts";
 
 const app = new Hono();
 

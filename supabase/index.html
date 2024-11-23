@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Auth Example</title>
+    <script src="./password.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        #auth-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 50vw;
+        }
+
+        input {
+            display: block;
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="auth-container">
+        <h2>Login with Supabase</h2>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="signIn()" style="margin-bottom: 10px;">Login</button>
+        <button onclick="signUp()">Sign Up</button>
+    </div>
+
+    <script>
+        // Inicializa Supabase
+        const SUPABASE_URL = window.SUPABASE_URL;
+        const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY;
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function signUp() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const { user, error } = await supabase.auth.signUp({
+                email: email,
+                password: password
+            });
+            if (error) {
+                alert('Error: ' + error.message);
+            } else {
+                alert('Sign-up successful! Check your email for verification.');
+            }
+        }
+
+        async function signIn() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const { user, session, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+            if (error) {
+                alert('Error: ' + error.message);
+            } else {
+                alert('Login successful!');
+                console.log('User info:', user);
+            }
+        }
+
+        async function getUser() {
+            supabase.channel('custom-filter-channel')
+                .on(
+                    'postgres_changes',
+                    { event: 'UPDATE', schema: 'public', table: 'devices', filter: 'android_id=eq.android_001' },
+                    (payload) => {
+                        console.log('Change received!', payload)
+                    }
+                )
+                .subscribe()
+
+        }
+
+        getUser()
+
+
+    </script>
+</body>
+
+</html>

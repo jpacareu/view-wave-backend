@@ -29,7 +29,7 @@ export abstract class BaseRepository<T extends TableName> {
             .from(this.table)
             .select("*")
             .eq("id", id)
-            .single();
+            .maybeSingle();
 
         if (error) {
             if (error.message === "Row not found") return null;
@@ -42,7 +42,7 @@ export abstract class BaseRepository<T extends TableName> {
     async create(item: any) {
         const { data, error } = await this.supabase.from(this.table).insert(
             item,
-        ).single();
+        ).maybeSingle();
         if (error) throw new Error(error.message);
         return data;
     }
@@ -53,7 +53,7 @@ export abstract class BaseRepository<T extends TableName> {
             .from(this.table)
             .update(updates)
             .eq("id", id)
-            .single();
+            .maybeSingle();
         if (error) throw new Error(error.message);
         return data;
     }

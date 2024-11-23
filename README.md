@@ -13,7 +13,7 @@ supabase stop --all --no-backup
 
 supabase projects list
 
-supabase gen types typescript --project-id "nceyjyktohosdlvbkwca" --schema public > supabase/types.ts
+supabase gen types typescript --project-id "nceyjyktohosdlvbkwca" --schema public > supabase/functions/types.ts
 
 supabase db dump --data-only > supabase/seed.sql
 ```
