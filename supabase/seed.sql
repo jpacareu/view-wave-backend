@@ -49,7 +49,8 @@ INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created
 	('00000000-0000-0000-0000-000000000000', '08357e56-fc88-471b-aef8-7b8cbf0d0a2d', '{"action":"login","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-11-19 23:23:55.399127+00', ''),
 	('00000000-0000-0000-0000-000000000000', '938c3bbf-9063-48e8-a3cb-b6a96fef1a1e', '{"action":"token_refreshed","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-20 05:44:49.771292+00', ''),
 	('00000000-0000-0000-0000-000000000000', '7c4b928c-3bbf-4e26-b3e5-d5cd01f7347d', '{"action":"token_revoked","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"token"}', '2024-11-20 05:44:49.782376+00', ''),
-	('00000000-0000-0000-0000-000000000000', 'f7f5ed61-6921-4dfb-b621-63f6bcb00dae', '{"action":"login","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-11-20 05:56:33.911632+00', '');
+	('00000000-0000-0000-0000-000000000000', 'f7f5ed61-6921-4dfb-b621-63f6bcb00dae', '{"action":"login","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-11-20 05:56:33.911632+00', ''),
+	('00000000-0000-0000-0000-000000000000', 'adbb3e02-3e0b-481e-bf43-a7d36cc92ca2', '{"action":"login","actor_id":"5f206c96-c10c-4ac9-a607-3dc55d76ce9f","actor_username":"javierpacareu@gmail.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2024-11-23 23:24:25.183971+00', '');
 
 
 --
@@ -64,7 +65,7 @@ INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created
 
 INSERT INTO "auth"."users" ("instance_id", "id", "aud", "role", "email", "encrypted_password", "email_confirmed_at", "invited_at", "confirmation_token", "confirmation_sent_at", "recovery_token", "recovery_sent_at", "email_change_token_new", "email_change", "email_change_sent_at", "last_sign_in_at", "raw_app_meta_data", "raw_user_meta_data", "is_super_admin", "created_at", "updated_at", "phone", "phone_confirmed_at", "phone_change", "phone_change_token", "phone_change_sent_at", "email_change_token_current", "email_change_confirm_status", "banned_until", "reauthentication_token", "reauthentication_sent_at", "is_sso_user", "deleted_at", "is_anonymous") VALUES
 	('00000000-0000-0000-0000-000000000000', '053ea79d-8b73-471a-8ec8-462990b64815', 'authenticated', 'authenticated', 'orelvisdev@gmail.com', NULL, '2024-11-18 17:26:39.639926+00', NULL, '', NULL, '', NULL, '', '', NULL, '2024-11-18 17:29:02.667959+00', '{"provider": "google", "providers": ["google"]}', '{"iss": "https://accounts.google.com", "sub": "113022781263694874158", "name": "Orelvis Lago", "email": "orelvisdev@gmail.com", "picture": "https://lh3.googleusercontent.com/a/ACg8ocK9VH_YTCxUqTBt5HEwLHJqdnzT-5UDZeaOjG8sPbZEG-EXhw=s96-c", "full_name": "Orelvis Lago", "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocK9VH_YTCxUqTBt5HEwLHJqdnzT-5UDZeaOjG8sPbZEG-EXhw=s96-c", "provider_id": "113022781263694874158", "email_verified": true, "phone_verified": false}', NULL, '2024-11-18 17:26:39.617568+00', '2024-11-18 21:34:30.158808+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false),
-	('00000000-0000-0000-0000-000000000000', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', 'authenticated', 'authenticated', 'javierpacareu@gmail.com', '$2a$10$ga0uXyeW29G4SGvkkJUPZeJCenTWO0ELJrJRdivb1SKwpnnmJVGYi', '2024-11-13 23:53:06.094413+00', NULL, '', NULL, '', NULL, '', '', NULL, '2024-11-20 05:56:33.913921+00', '{"provider": "email", "providers": ["email"]}', '{}', NULL, '2024-11-13 23:53:06.057554+00', '2024-11-20 05:56:33.930816+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false);
+	('00000000-0000-0000-0000-000000000000', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', 'authenticated', 'authenticated', 'javierpacareu@gmail.com', '$2a$10$ga0uXyeW29G4SGvkkJUPZeJCenTWO0ELJrJRdivb1SKwpnnmJVGYi', '2024-11-13 23:53:06.094413+00', NULL, '', NULL, '', NULL, '', '', NULL, '2024-11-23 23:24:25.184645+00', '{"provider": "email", "providers": ["email"]}', '{}', NULL, '2024-11-13 23:53:06.057554+00', '2024-11-23 23:24:25.18684+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false);
 
 
 --
@@ -91,7 +92,8 @@ INSERT INTO "auth"."sessions" ("id", "user_id", "created_at", "updated_at", "fac
 	('8a15ff95-a764-4d1b-9223-eec745e5336f', '053ea79d-8b73-471a-8ec8-462990b64815', '2024-11-18 17:26:39.642687+00', '2024-11-18 17:26:39.642687+00', NULL, 'aal1', NULL, NULL, 'ktor-client', '64.201.138.246', NULL),
 	('648a8d11-37cd-4334-bdc6-85f3a63530a2', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '2024-11-14 23:28:28.513379+00', '2024-11-19 23:23:43.498151+00', NULL, 'aal1', NULL, '2024-11-19 23:23:43.497348', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', '68.8.77.173', NULL),
 	('16bd54b1-7a7f-4168-ad34-848a0895307f', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '2024-11-19 23:23:55.402269+00', '2024-11-20 05:44:49.798801+00', NULL, 'aal1', NULL, '2024-11-20 05:44:49.798727', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', '68.8.77.173', NULL),
-	('21c09186-479b-49b5-bfef-171773727336', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '2024-11-20 05:56:33.916097+00', '2024-11-20 05:56:33.916097+00', NULL, 'aal1', NULL, NULL, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', '68.8.77.173', NULL);
+	('21c09186-479b-49b5-bfef-171773727336', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '2024-11-20 05:56:33.916097+00', '2024-11-20 05:56:33.916097+00', NULL, 'aal1', NULL, NULL, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', '68.8.77.173', NULL),
+	('855f7e88-509d-4d40-8275-c2c8777f8afe', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '2024-11-23 23:24:25.184677+00', '2024-11-23 23:24:25.184677+00', NULL, 'aal1', NULL, NULL, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', '172.18.0.1', NULL);
 
 
 --
@@ -103,7 +105,8 @@ INSERT INTO "auth"."mfa_amr_claims" ("session_id", "created_at", "updated_at", "
 	('648a8d11-37cd-4334-bdc6-85f3a63530a2', '2024-11-14 23:28:28.519399+00', '2024-11-14 23:28:28.519399+00', 'password', '9bee42cc-b9ca-469f-8e36-f355a7ef4bbb'),
 	('8a15ff95-a764-4d1b-9223-eec745e5336f', '2024-11-18 17:26:39.653776+00', '2024-11-18 17:26:39.653776+00', 'oauth', '3cb67976-75c9-437b-8a98-6c85961940a6'),
 	('16bd54b1-7a7f-4168-ad34-848a0895307f', '2024-11-19 23:23:55.406999+00', '2024-11-19 23:23:55.406999+00', 'password', '12b09d0a-82e1-4483-9abc-9afaf9fc28c3'),
-	('21c09186-479b-49b5-bfef-171773727336', '2024-11-20 05:56:33.93144+00', '2024-11-20 05:56:33.93144+00', 'password', 'e334343d-c259-4580-bcd9-b2f1846d8fe4');
+	('21c09186-479b-49b5-bfef-171773727336', '2024-11-20 05:56:33.93144+00', '2024-11-20 05:56:33.93144+00', 'password', 'e334343d-c259-4580-bcd9-b2f1846d8fe4'),
+	('855f7e88-509d-4d40-8275-c2c8777f8afe', '2024-11-23 23:24:25.187229+00', '2024-11-23 23:24:25.187229+00', 'password', '0016ee5f-2de2-4829-a1dc-3253c6f98fed');
 
 
 --
@@ -140,7 +143,8 @@ INSERT INTO "auth"."refresh_tokens" ("instance_id", "id", "token", "user_id", "r
 	('00000000-0000-0000-0000-000000000000', 12, 'n9-0MyvQ7b06fncvZaz7BQ', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', false, '2024-11-19 23:23:43.480431+00', '2024-11-19 23:23:43.480431+00', 'WXyd_iT7xAm0qTMbCra74A', '648a8d11-37cd-4334-bdc6-85f3a63530a2'),
 	('00000000-0000-0000-0000-000000000000', 13, 'QpImeh6xXwz82pdTPz-2SQ', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', true, '2024-11-19 23:23:55.405803+00', '2024-11-20 05:44:49.782919+00', NULL, '16bd54b1-7a7f-4168-ad34-848a0895307f'),
 	('00000000-0000-0000-0000-000000000000', 14, 'psjtpqzixZbP5haoguWOqA', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', false, '2024-11-20 05:44:49.789904+00', '2024-11-20 05:44:49.789904+00', 'QpImeh6xXwz82pdTPz-2SQ', '16bd54b1-7a7f-4168-ad34-848a0895307f'),
-	('00000000-0000-0000-0000-000000000000', 15, 'VE6VEVr77D1rOrCBO3AWmQ', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', false, '2024-11-20 05:56:33.925231+00', '2024-11-20 05:56:33.925231+00', NULL, '21c09186-479b-49b5-bfef-171773727336');
+	('00000000-0000-0000-0000-000000000000', 15, 'VE6VEVr77D1rOrCBO3AWmQ', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', false, '2024-11-20 05:56:33.925231+00', '2024-11-20 05:56:33.925231+00', NULL, '21c09186-479b-49b5-bfef-171773727336'),
+	('00000000-0000-0000-0000-000000000000', 16, '88xPP1LwaVObPM62gvc1tw', '5f206c96-c10c-4ac9-a607-3dc55d76ce9f', false, '2024-11-23 23:24:25.185533+00', '2024-11-23 23:24:25.185533+00', NULL, '855f7e88-509d-4d40-8275-c2c8777f8afe');
 
 
 --
@@ -177,9 +181,9 @@ INSERT INTO "auth"."refresh_tokens" ("instance_id", "id", "token", "user_id", "r
 -- Data for Name: organizations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "public"."organizations" ("id", "created_at", "name") VALUES
-	('8392f809-ed88-472b-9572-62fc8b4a6092', '2024-11-12 05:04:37.768436+00', 'Organization A'),
-	('dcd3a42d-8808-4063-ad64-5a433a5ec214', '2024-11-12 05:04:37.768436+00', 'Organization B');
+INSERT INTO "public"."organizations" ("id", "created_at", "name", "category") VALUES
+	('8392f809-ed88-472b-9572-62fc8b4a6092', '2024-11-12 05:04:37.768436+00', 'Organization A', NULL),
+	('dcd3a42d-8808-4063-ad64-5a433a5ec214', '2024-11-12 05:04:37.768436+00', 'Organization B', 'dentist');
 
 
 --
@@ -231,9 +235,9 @@ INSERT INTO "public"."lists" ("created_at", "name", "content", "id") VALUES
 -- Data for Name: devices; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "public"."devices" ("id", "created_at", "name", "android_id", "branch_id", "list_id", "status", "code_value", "code_exp") VALUES
-	('00d0155f-b38e-435c-b999-f320559f8700', '2024-11-12 05:04:37.768436+00', 'Device 2', 'android_002', '6459cb87-939e-4dec-862b-0cb7cf8adcda', '3d9ad1f9-a1f7-4ef6-87fb-8b3f585a5b68', 'initialized', NULL, NULL),
-	('bace098a-3221-47b5-828f-5e33bc7d2e99', '2024-11-12 05:04:37.768436+00', 'Device 1', 'android_001', '2cf52926-d0b3-4c17-9906-298f59b940a6', '9c4ff48d-c040-4eb9-a850-111176f015b6', 'initialized', '18701', '2024-11-19 20:07:43.616527+00');
+INSERT INTO "public"."devices" ("id", "created_at", "name", "android_id", "branch_id", "list_id", "status", "code_value", "code_exp", "organization_id") VALUES
+	('00d0155f-b38e-435c-b999-f320559f8700', '2024-11-12 05:04:37.768436+00', 'Device 2', 'android_002', NULL, '3d9ad1f9-a1f7-4ef6-87fb-8b3f585a5b68', 'initialized', NULL, NULL, '8392f809-ed88-472b-9572-62fc8b4a6092'),
+	('bace098a-3221-47b5-828f-5e33bc7d2e99', '2024-11-12 05:04:37.768436+00', 'Device 1', 'android_001', '2cf52926-d0b3-4c17-9906-298f59b940a6', '9c4ff48d-c040-4eb9-a850-111176f015b6', 'assigned', '58083', '2024-11-24 02:44:35.726043+00', '8392f809-ed88-472b-9572-62fc8b4a6092');
 
 
 --
@@ -241,8 +245,8 @@ INSERT INTO "public"."devices" ("id", "created_at", "name", "android_id", "branc
 --
 
 INSERT INTO "public"."users_branches" ("user_id", "branch_id") VALUES
-	('5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '2cf52926-d0b3-4c17-9906-298f59b940a6'),
-	('5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '6459cb87-939e-4dec-862b-0cb7cf8adcda');
+	('5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '6459cb87-939e-4dec-862b-0cb7cf8adcda'),
+	('5f206c96-c10c-4ac9-a607-3dc55d76ce9f', '2cf52926-d0b3-4c17-9906-298f59b940a6');
 
 
 --
@@ -270,6 +274,12 @@ INSERT INTO "public"."users_branches" ("user_id", "branch_id") VALUES
 
 
 --
+-- Data for Name: hooks; Type: TABLE DATA; Schema: supabase_functions; Owner: supabase_functions_admin
+--
+
+
+
+--
 -- Data for Name: secrets; Type: TABLE DATA; Schema: vault; Owner: supabase_admin
 --
 
@@ -279,7 +289,7 @@ INSERT INTO "public"."users_branches" ("user_id", "branch_id") VALUES
 -- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: supabase_auth_admin
 --
 
-SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 15, true);
+SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 16, true);
 
 
 --
@@ -287,6 +297,13 @@ SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 15, true);
 --
 
 SELECT pg_catalog.setval('"pgsodium"."key_key_id_seq"', 1, false);
+
+
+--
+-- Name: hooks_id_seq; Type: SEQUENCE SET; Schema: supabase_functions; Owner: supabase_functions_admin
+--
+
+SELECT pg_catalog.setval('"supabase_functions"."hooks_id_seq"', 1, false);
 
 
 --
