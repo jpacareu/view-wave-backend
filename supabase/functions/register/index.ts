@@ -19,9 +19,9 @@ app.put("/register", async (c) => {
 
   const body = await c.req.json();
 
-  const device = await service.registerByCode(body, token);
+  const response = await service.registerByCode(body, token);
 
-  return c.json(device);
+  return c.json(response);
 });
 
 Deno.serve(app.fetch);

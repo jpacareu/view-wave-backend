@@ -8,9 +8,9 @@ app.get("/startup/:androidId", async (c) => {
   const supabaseClient = buildClient();
   const service = new StartupService(supabaseClient);
 
-  const device = await service.startupByAndroidId(c.req.param("androidId"));
+  const response = await service.startupByAndroidId(c.req.param("androidId"));
 
-  return c.json(device);
+  return c.json(response);
 });
 
 Deno.serve(app.fetch);
