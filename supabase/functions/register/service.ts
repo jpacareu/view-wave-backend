@@ -67,6 +67,8 @@ export default class RegisterService {
             status: DEVICE_STATUS.ASSIGNED,
             branch_id: branchId,
             organization_id: organization.organization_id,
+            code_value: null,
+            code_exp: null,
         });
 
         // From TV: Should listen the event where it changes the status and hit the "startup" endpoint

@@ -59,6 +59,8 @@ export class DeviceRepository extends BaseRepository<"devices"> {
       branch_id: string;
       organization_id: string;
       status: Enums<"device_status">;
+      code_value: string | null;
+      code_exp: string | null;
     },
   ) => {
     return this.update(id, { ...payload });
