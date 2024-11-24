@@ -49,7 +49,7 @@ Create a migration file that contains your new change:
 Mark migration file was already applied so don't run it again when updating
 remote DB
 
-- supabase db repair 20241119043331 --status applied --linked
+- supabase migration repair 20241119043331 --status applied --linked
 
 Upload change (this will usually fail due to permissions, more info
 [here](https://youtu.be/nyX_EygplXQ?si=d8peW82XtZGNRbh_&t=734))
