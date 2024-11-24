@@ -1,6 +1,6 @@
 import { SupabaseClient } from "jsr:@supabase/supabase-js@2";
 import { BaseRepository } from "../_shared/base-respository.ts";
-import { Database } from "../types.ts";
+import { Database, Enums } from "../types.ts";
 
 export class DeviceRepository extends BaseRepository<"devices"> {
     constructor(supabase: SupabaseClient<Database>) {
@@ -13,7 +13,8 @@ export class DeviceRepository extends BaseRepository<"devices"> {
         const { data, error } = await this.supabase
             .from("devices")
             .select("id,status")
-            .eq("android_id", androidId);
+            .eq("android_id", androidId)
+            .maybeSingle();
 
         if (error) {
             throw error;
@@ -39,7 +40,7 @@ export class DeviceRepository extends BaseRepository<"devices"> {
 
     getDeviceByCode = async (code: string) => {
         const now = new Date().toISOString();
-        
+
         const { data, error } = await this.supabase
             .from("devices")
             .select("id,status,code_exp")
@@ -52,5 +53,16 @@ export class DeviceRepository extends BaseRepository<"devices"> {
         }
 
         return data;
+    };
+
+    assignDeviceToBranch = (
+        id: string,
+        payload: {
+            branch_id: string;
+            organization_id: string;
+            status: Enums<"device_status">;
+        },
+    ) => {
+        return this.update(id, { ...payload });
     };
 }

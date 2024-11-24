@@ -1,6 +1,7 @@
 import { SupabaseClient } from "jsr:@supabase/supabase-js@2";
 import { DeviceRepository } from "../_repositories/device.ts";
 import { DEVICE_STATUS } from "../_shared/constants.ts";
+import { DEFAULT_LIST } from "../_configs/default.ts";
 
 export default class StartupService {
     private deviceRepository: DeviceRepository;
@@ -14,7 +15,7 @@ export default class StartupService {
             androidId,
         );
 
-        if (!device?.length) {
+        if (!device) {
             return ({
                 event: "DEVICE_NOT_FOUND",
                 payload: {
@@ -24,24 +25,13 @@ export default class StartupService {
             });
         }
 
-        const [deviceData] = device;
-
-        if (deviceData.status === DEVICE_STATUS.ASSIGNED) {
+        if (device.status === DEVICE_STATUS.ASSIGNED) {
+            // get list
             return ({
                 event: "CONTINUE",
                 payload: {
                     message: "Device is assigned",
-                    list: [
-                        // TODO: Add use case for these videos
-                        {
-                            title: "Video 1",
-                            url: "https://www.youtube.com/watch?v=vdPP1_jveeQ",
-                        },
-                        {
-                            title: "Video 2",
-                            url: "https://www.youtube.com/watch?v=IZzeLnaygME",
-                        },
-                    ],
+                    list: DEFAULT_LIST,
                 },
             });
         }
@@ -52,7 +42,7 @@ export default class StartupService {
             event: "STARTUP",
             payload: {
                 message: "Please enter the code or scan the QR to continue",
-                code, // TODO: Transform this to a QR on Client
+                code, // Mobile app: Transform this to a QR on Client
             },
         });
     };

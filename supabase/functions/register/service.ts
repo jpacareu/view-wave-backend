@@ -58,32 +58,30 @@ export default class RegisterService {
                 branchId,
             );
 
-        if (!organization) {
+        if (!organization?.organization_id) {
             return this.getResponseByEvent("ORGANIZATION_NOT_FOUND");
         }
 
-        await this.deviceRepository.update(device.id, {
+        await this.deviceRepository.assignDeviceToBranch(device.id, {
             status: DEVICE_STATUS.ASSIGNED,
-            organization_id: organization.organization_id,
             branch_id: branchId,
+            organization_id: organization.organization_id,
         });
 
-        return ({
-            event: "DEVICE_FOUND",
-            payload: {
-                message: "Device found",
-                device,
-            },
+        // From TV: Should listen the event where it changes the status and hit the "startup" endpoint
+        return this.getResponseByEvent("DEVICE_ASSIGNED", {
+            device,
         });
     };
 
-    getResponseByEvent = (event: string) => {
+    getResponseByEvent = (event: string, data?: any) => {
         switch (event) {
             case "CODE_NOT_FOUND":
                 return ({
                     event: "CODE_NOT_FOUND",
                     payload: {
                         message: "Code not valid, please provide a valid code",
+                        ...data,
                     },
                 });
             case "BRANCH_NOT_FOUND":
@@ -91,7 +89,8 @@ export default class RegisterService {
                     event: "BRANCH_NOT_FOUND",
                     payload: {
                         message:
-                            "Branch not valid, please provide a valid branch",
+                            "Branch not valid, please provide a valid branch to register the device",
+                        ...data,
                     },
                 });
             case "DEVICE_FOUND":
@@ -99,6 +98,7 @@ export default class RegisterService {
                     event: "DEVICE_FOUND",
                     payload: {
                         message: "Device found",
+                        ...data,
                     },
                 });
             case "DEVICE_NOT_FOUND":
@@ -106,6 +106,7 @@ export default class RegisterService {
                     event: "DEVICE_NOT_FOUND",
                     payload: {
                         message: "Device not found for that code value",
+                        ...data,
                     },
                 });
 
@@ -114,6 +115,7 @@ export default class RegisterService {
                     event: "ORGANIZATION_NOT_FOUND",
                     payload: {
                         message: "Organization not found for that branch",
+                        ...data,
                     },
                 });
             case "DEVICE_ALREADY_ASSIGNED":
@@ -121,6 +123,7 @@ export default class RegisterService {
                     event: "DEVICE_ALREADY_ASSIGNED",
                     payload: {
                         message: "This device is already assigned",
+                        ...data,
                     },
                 });
             default:

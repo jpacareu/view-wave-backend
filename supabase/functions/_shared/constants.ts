@@ -1,9 +1,12 @@
 import type { Enums } from "../types.ts";
 
-export const DEVICE_STATUS: Record<
-    Uppercase<Enums<"device_status">>,
-    Enums<"device_status">
-> = {
+type DeviceStatus = Uppercase<Enums<"device_status">>;
+
+type DeviceStatusMap = {
+    [K in DeviceStatus]: Lowercase<K>;
+};
+
+export const DEVICE_STATUS: DeviceStatusMap = {
     INITIALIZED: "initialized",
     BOOTED: "booted",
     ASSIGNED: "assigned",
