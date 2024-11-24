@@ -5,17 +5,19 @@ type TableName = keyof Database["public"]["Tables"];
 
 export abstract class BaseRepository<T extends TableName> {
     protected supabase: SupabaseClient<Database>;
-    protected table: T;
+    protected tableName: T;
+    protected table: ReturnType<SupabaseClient<Database>["from"]>;
 
     constructor(supabaseClient: SupabaseClient, tableName: T) {
         this.supabase = supabaseClient;
-        this.table = tableName;
+        this.tableName = tableName;
+        this.table = this.supabase.from(tableName);
     }
 
     // Retrieve all records
     async getAll() {
         const { data, error } = await this.supabase.from(
-            this.table,
+            this.tableName,
         ).select(
             "*",
         );
@@ -26,7 +28,7 @@ export abstract class BaseRepository<T extends TableName> {
     // Retrieve a single record by its ID
     async getById(id: string) {
         const { data, error } = await this.supabase
-            .from(this.table)
+            .from(this.tableName)
             .select("*")
             .eq("id", id)
             .maybeSingle();
@@ -40,7 +42,7 @@ export abstract class BaseRepository<T extends TableName> {
 
     // Create a new record
     async create(item: any) {
-        const { data, error } = await this.supabase.from(this.table).insert(
+        const { data, error } = await this.supabase.from(this.tableName).insert(
             item,
         ).maybeSingle();
         if (error) throw new Error(error.message);
@@ -50,7 +52,7 @@ export abstract class BaseRepository<T extends TableName> {
     // Update an existing record
     async update(id: string, updates: any) {
         const { data, error } = await this.supabase
-            .from(this.table)
+            .from(this.tableName)
             .update(updates)
             .eq("id", id)
             .maybeSingle();
@@ -60,7 +62,7 @@ export abstract class BaseRepository<T extends TableName> {
 
     // Delete a record by its ID
     async delete(id: string) {
-        const { error } = await this.supabase.from(this.table).delete().eq(
+        const { error } = await this.supabase.from(this.tableName).delete().eq(
             "id",
             id,
         );

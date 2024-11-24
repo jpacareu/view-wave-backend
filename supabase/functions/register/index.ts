@@ -5,7 +5,7 @@ import RegisterService from "./service.ts";
 const app = new Hono();
 
 app.put("/register", async (c) => {
-  const token = c.req.header("Authorization")?.replace("Bearer ", "") ?? "";
+  const token = c.req.header("Authorization") ?? "";
 
   const supabaseClient = buildClient({
     global: {

@@ -118,6 +118,7 @@ export type Database = {
           id: string
           list_id: string | null
           name: string | null
+          organization_id: string | null
           status: Database["public"]["Enums"]["device_status"] | null
         }
         Insert: {
@@ -129,6 +130,7 @@ export type Database = {
           id?: string
           list_id?: string | null
           name?: string | null
+          organization_id?: string | null
           status?: Database["public"]["Enums"]["device_status"] | null
         }
         Update: {
@@ -140,6 +142,7 @@ export type Database = {
           id?: string
           list_id?: string | null
           name?: string | null
+          organization_id?: string | null
           status?: Database["public"]["Enums"]["device_status"] | null
         }
         Relationships: [
@@ -155,6 +158,13 @@ export type Database = {
             columns: ["list_id"]
             isOneToOne: false
             referencedRelation: "lists"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "devices_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
             referencedColumns: ["id"]
           },
         ]
@@ -182,16 +192,19 @@ export type Database = {
       }
       organizations: {
         Row: {
+          category: string | null
           created_at: string
           id: string
           name: string | null
         }
         Insert: {
+          category?: string | null
           created_at?: string
           id?: string
           name?: string | null
         }
         Update: {
+          category?: string | null
           created_at?: string
           id?: string
           name?: string | null
@@ -270,6 +283,16 @@ export type Database = {
           android_id: string
         }
         Returns: string
+      }
+      get_branch_devices: {
+        Args: {
+          branch_id: string
+        }
+        Returns: {
+          id: string
+          name: string
+          list_id: string
+        }[]
       }
     }
     Enums: {

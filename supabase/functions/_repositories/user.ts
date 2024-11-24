@@ -23,8 +23,7 @@ export class UserRepository extends BaseRepository<"users"> {
     getUserByEmail = async (
         email: string,
     ) => {
-        const { data, error } = await this.supabase
-            .from("users")
+        const { data, error } = await this.table
             .select("id,email")
             .eq("email", email);
 

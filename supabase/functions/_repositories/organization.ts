@@ -8,8 +8,7 @@ export class OrganizationRepository extends BaseRepository<"organizations"> {
     }
 
     getOrganizationById = async (id: string) => {
-        const { data, error } = await this.supabase
-            .from("organizations")
+        const { data, error } = await this.table
             .select("id,name")
             .eq("id", id)
             .maybeSingle();

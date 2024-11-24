@@ -40,6 +40,7 @@ export default class RegisterService {
             return this.getResponseByEvent("DEVICE_ALREADY_ASSIGNED");
         }
 
+        // migrate to auth.uid()
         const user = await this.userRepository.getUserFromToken(
             token,
         );

@@ -28,7 +28,7 @@ export default class StartupService {
         if (device.status === DEVICE_STATUS.ASSIGNED) {
             // get list
             return ({
-                event: "CONTINUE",
+                event: "PLAY_LIST",
                 payload: {
                     message: "Device is assigned",
                     list: DEFAULT_LIST,

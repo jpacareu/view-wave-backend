@@ -3,21 +3,35 @@ import { BaseRepository } from "../_shared/base-respository.ts";
 import { Database } from "../types.ts";
 
 export class BranchRepository extends BaseRepository<"branches"> {
-    constructor(supabase: SupabaseClient<Database>) {
-        super(supabase, "branches");
+  constructor(supabase: SupabaseClient<Database>) {
+    super(supabase, "branches");
+  }
+
+  getOrganizationByBranchId = async (id: string) => {
+    const { data, error } = await this.table
+      .select("organization_id")
+      .eq("id", id)
+      .maybeSingle();
+
+    if (error) {
+      throw error;
     }
 
-    getOrganizationByBranchId = async (id: string) => {
-        const { data, error } = await this.supabase
-            .from("branches")
-            .select("organization_id")
-            .eq("id", id)
-            .maybeSingle();
+    return data;
+  };
 
-        if (error) {
-            throw error;
-        }
+  getBranchDevices = async (branchId: string) => {
+    const { data, error } = await this.supabase.rpc(
+      "get_branch_devices",
+      {
+        branch_id: branchId,
+      },
+    );
 
-        return data;
-    };
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  };
 }
