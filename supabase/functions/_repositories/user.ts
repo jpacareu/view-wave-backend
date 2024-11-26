@@ -3,49 +3,46 @@ import { BaseRepository } from "../_shared/base-respository.ts";
 import { Database } from "../types.ts";
 
 export class UserRepository extends BaseRepository<"users"> {
-    constructor(supabase: SupabaseClient<Database>) {
-        super(supabase, "users");
+  constructor(supabase: SupabaseClient<Database>) {
+    super(supabase, "users");
+  }
+
+  getAuthUser = async () => {
+    const { data, error } = await this.supabase.auth.getUser();
+
+    if (error) {
+      throw error;
     }
 
-    getUserFromToken = async (
-        authorization: string,
-    ): Promise<User> => {
-        const token = authorization.replace("Bearer ", "");
-        const { data, error } = await this.supabase.auth.getUser(token);
+    return data.user;
+  };
 
-        if (error) {
-            throw error;
-        }
+  getUserByEmail = async (
+    email: string,
+  ) => {
+    const { data, error } = await this.table
+      .select("id,email")
+      .eq("email", email);
 
-        return data.user;
-    };
+    if (error) {
+      throw error;
+    }
 
-    getUserByEmail = async (
-        email: string,
-    ) => {
-        const { data, error } = await this.table
-            .select("id,email")
-            .eq("email", email);
+    return data;
+  };
 
-        if (error) {
-            throw error;
-        }
+  getUserBranches = async (userId: string, branchId: string) => {
+    const { data, error } = await this.supabase
+      .from("users_branches")
+      .select("*")
+      .eq("user_id", userId)
+      .eq("branch_id", branchId)
+      .maybeSingle();
 
-        return data;
-    };
+    if (error) {
+      throw error;
+    }
 
-    getUserBranches = async (userId: string, branchId: string) => {
-        const { data, error } = await this.supabase
-            .from("users_branches")
-            .select("*")
-            .eq("user_id", userId)
-            .eq("branch_id", branchId)
-            .maybeSingle();
-
-        if (error) {
-            throw error;
-        }
-
-        return data;
-    };
+    return data;
+  };
 }

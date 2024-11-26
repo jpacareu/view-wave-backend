@@ -89,20 +89,45 @@
             }
         }
 
-        async function getUser() {
-            supabase.channel('custom-filter-channel')
-                .on(
-                    'postgres_changes',
-                    { event: 'UPDATE', schema: 'public', table: 'devices', filter: 'android_id=eq.android_001' },
-                    (payload) => {
-                        console.log('Change received!', payload)
-                    }
-                )
-                .subscribe()
+        // async function getUser() {
+        //     supabase.channel('custom-filter-channel')
+        //         .on(
+        //             'postgres_changes',
+        //             { event: 'UPDATE', schema: 'public', table: 'devices', filter: 'android_id=eq.android_001' },
+        //             (payload) => {
+        //                 console.log('Change received!', payload)
+        //             }
+        //         )
+        //         .subscribe()
 
+        // }
+
+        // getUser()
+
+
+        async function verify() {
+            // extract hash token and hash type from url
+            const urlParams = new URLSearchParams(window.location.href.replace(/#access_token/, '?access_token'));
+            
+            const token_hash = urlParams.get('token_hash');
+            const type = urlParams.get('type');
+
+            if (!token_hash || !type) {
+                return;
+            }
+
+            const { error } = await supabase.auth.verifyOtp({ token_hash, type })
+
+            if (error) {
+                alert('Error: ' + error.message);
+            } else {
+                alert('Verification successful!');
+            }
         }
 
-        getUser()
+        document.addEventListener('DOMContentLoaded', () => {
+            verify()
+        })
 
 
     </script>

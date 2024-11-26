@@ -21,7 +21,10 @@ export abstract class BaseRepository<T extends TableName> {
     ).select(
       "*",
     );
-    if (error) throw new Error(error.message);
+    if (error) {
+      throw new Error(error.message);
+    }
+
     return data || [];
   }
 
@@ -44,8 +47,11 @@ export abstract class BaseRepository<T extends TableName> {
   async create(item: any) {
     const { data, error } = await this.supabase.from(this.tableName).insert(
       item,
-    ).maybeSingle();
-    if (error) throw new Error(error.message);
+    );
+    if (error) {
+      throw new Error(error.message);
+    }
+
     return data;
   }
 
@@ -56,7 +62,11 @@ export abstract class BaseRepository<T extends TableName> {
       .update(updates)
       .eq("id", id)
       .maybeSingle();
-    if (error) throw new Error(error.message);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
     return data;
   }
 
@@ -66,7 +76,10 @@ export abstract class BaseRepository<T extends TableName> {
       "id",
       id,
     );
-    if (error) throw new Error(error.message);
+    if (error) {
+      throw new Error(error.message);
+    }
+
     return true;
   }
 }

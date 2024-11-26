@@ -15,9 +15,12 @@ export default class UserService {
       email: string;
     }>,
   ) => {
-    await this.userRepository.create(body.record);
-
     const { id, email } = body.record;
+
+    await this.userRepository.create({
+      id,
+      email,
+    });
 
     return this.getResponseByEvent("USER_CRETED", {
       id,

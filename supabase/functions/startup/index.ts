@@ -4,6 +4,9 @@ import StartupService from "./service.ts";
 
 const app = new Hono();
 
+/**
+ * This method should not be JWT protected
+ */
 app.get("/startup/:androidId", async (c) => {
   const supabaseClient = buildClient();
   const service = new StartupService(supabaseClient);
