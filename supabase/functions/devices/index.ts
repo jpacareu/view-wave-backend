@@ -7,13 +7,7 @@ const app = new Hono();
 app.post("/devices/register", async (c) => {
   const token = c.req.header("Authorization") ?? "";
 
-  const supabaseClient = buildClient({
-    global: {
-      headers: {
-        Authorization: token,
-      },
-    },
-  });
+  const supabaseClient = buildClient({ token });
 
   const service = new DeviceService(supabaseClient);
 
@@ -29,13 +23,7 @@ app.delete("/devices/:deviceId", async (c) => {
 
   const token = c.req.header("Authorization") ?? "";
 
-  const supabaseClient = buildClient({
-    global: {
-      headers: {
-        Authorization: token,
-      },
-    },
-  });
+  const supabaseClient = buildClient({ token });
 
   const service = new DeviceService(supabaseClient);
 
