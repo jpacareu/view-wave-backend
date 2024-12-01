@@ -1,6 +1,6 @@
 import { SupabaseClient } from "jsr:@supabase/supabase-js@2";
 import { UserRepository } from "../_repositories/user.ts";
-import { InsertPayload } from "../types.custom.ts";
+import { InsertPayload } from "../custom.types.ts";
 
 export default class UserService {
   private userRepository: UserRepository;
@@ -32,14 +32,14 @@ export default class UserService {
     const userEntities = await this.userRepository.getUserEntities();
 
     if (!userEntities) {
-      return this.getResponseByEvent("USER_NOT_FOUND");
+      return this.getResponseByEvent("USER_HAS_NO_ENTITIES");
     }
 
     if (!userEntities.organization) {
       return this.getResponseByEvent("USER_ORGANIZATION_NOT_FOUND");
     }
 
-    if (!userEntities.branches) {
+    if (!userEntities.branches?.length) {
       return this.getResponseByEvent("USER_BRANCHES_NOT_FOUND");
     }
 
@@ -48,11 +48,19 @@ export default class UserService {
 
   getResponseByEvent = (event: string, data?: any) => {
     switch (event) {
-      case "USER_NOT_FOUND":
+      case "USER_CRETED":
         return ({
-          event: "USER_NOT_FOUND",
+          event: "USER_CRETED",
           payload: {
             message: "User created",
+            ...data,
+          },
+        });
+      case "USER_HAS_NO_ENTITIES":
+        return ({
+          event: "USER_HAS_NO_ENTITIES",
+          payload: {
+            message: "User has no entities",
             ...data,
           },
         });

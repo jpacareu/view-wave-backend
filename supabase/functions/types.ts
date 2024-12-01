@@ -46,6 +46,7 @@ export type Database = {
       }
       branches: {
         Row: {
+          category: Database["public"]["Enums"]["category"] | null
           created_at: string
           id: string
           name: string | null
@@ -53,6 +54,7 @@ export type Database = {
           places_id: string | null
         }
         Insert: {
+          category?: Database["public"]["Enums"]["category"] | null
           created_at?: string
           id?: string
           name?: string | null
@@ -60,6 +62,7 @@ export type Database = {
           places_id?: string | null
         }
         Update: {
+          category?: Database["public"]["Enums"]["category"] | null
           created_at?: string
           id?: string
           name?: string | null
@@ -171,24 +174,45 @@ export type Database = {
       }
       lists: {
         Row: {
+          branch_id: string | null
           content: string[] | null
           created_at: string
           id: string
           name: string | null
+          organization_id: string | null
         }
         Insert: {
+          branch_id?: string | null
           content?: string[] | null
           created_at?: string
           id?: string
           name?: string | null
+          organization_id?: string | null
         }
         Update: {
+          branch_id?: string | null
           content?: string[] | null
           created_at?: string
           id?: string
           name?: string | null
+          organization_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "lists_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lists_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       organizations: {
         Row: {
@@ -294,8 +318,13 @@ export type Database = {
           list_id: string
         }[]
       }
+      get_user_entities: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
     }
     Enums: {
+      category: "dentist" | "hair_salon" | "cuban_restaurant"
       device_status: "initialized" | "assigned" | "booted"
     }
     CompositeTypes: {

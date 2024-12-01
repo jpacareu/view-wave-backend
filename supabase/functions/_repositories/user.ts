@@ -1,6 +1,7 @@
 import { SupabaseClient, User } from "jsr:@supabase/supabase-js@2";
 import { BaseRepository } from "../_shared/base-respository.ts";
 import { Database } from "../types.ts";
+import { UserEntities } from "../user.types.ts";
 
 export class UserRepository extends BaseRepository<"users"> {
   constructor(supabase: SupabaseClient<Database>) {
@@ -25,7 +26,7 @@ export class UserRepository extends BaseRepository<"users"> {
       throw error;
     }
 
-    return data;
+    return data as UserEntities;
   };
 
   getUserByEmail = async (
