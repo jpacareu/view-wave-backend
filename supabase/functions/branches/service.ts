@@ -20,6 +20,18 @@ export default class BranchService {
     return this.getResponseByEvent("BRANCH_DEVICES_LIST", { devices });
   };
 
+  getBranchLists = async (branchId: string) => {
+    if (!branchId) {
+      this.getResponseByEvent("BRANCH_NOT_PRESENT");
+    }
+
+    const lists = await this.branchRepository.getBranchLists(
+      branchId,
+    );
+
+    return this.getResponseByEvent("BRANCH_DEVICES_LIST", { lists });
+  };
+
   getResponseByEvent = (event: string, data?: any) => {
     switch (event) {
       case "BRANCH_NOT_PRESENT":

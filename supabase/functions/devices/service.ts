@@ -98,6 +98,17 @@ export default class DeviceService {
     });
   };
 
+  unassignList = async (id: string) => {
+    await this.deviceRepository.update(
+      id,
+      {
+        list_id: null,
+      },
+    );
+
+    return this.getResponseByEvent("DEVICE_SUCCESSFULLY_UNASSIGNED");
+  };
+
   getResponseByEvent = (event: string, data?: any) => {
     switch (event) {
       case "CODE_NOT_FOUND":
@@ -170,6 +181,15 @@ export default class DeviceService {
           event: "DEVICE_ASSIGNED",
           payload: {
             message: "Device assigned",
+            ...data,
+          },
+        });
+
+      case "DEVICE_SUCCESSFULLY_UNASSIGNED":
+        return ({
+          event: "DEVICE_SUCCESSFULLY_UNASSIGNED",
+          payload: {
+            message: "Device successfully unassigned",
             ...data,
           },
         });

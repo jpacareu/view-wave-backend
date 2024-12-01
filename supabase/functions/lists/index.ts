@@ -1,6 +1,5 @@
 import { Hono } from "jsr:@hono/hono";
 import buildClient from "../_shared/supabase-client.ts";
-import DeviceService from "./service.ts";
 
 const app = new Hono();
 
@@ -9,19 +8,9 @@ app.get("/lists/:deviceId", async (c) => {
 
   const token = c.req.header("Authorization") ?? "";
 
-  const supabaseClient = buildClient({
-    global: {
-      headers: {
-        Authorization: token,
-      },
-    },
-  });
+  const supabaseClient = buildClient({ token });
 
-  const service = new DeviceService(supabaseClient);
-
-  const response = await service.deleteDevice(deviceId);
-
-  return c.json(response);
+  return c.json({});
 });
 
 Deno.serve(app.fetch);

@@ -18,4 +18,18 @@ app.get("/branches/:branchId/devices", async (c) => {
   return c.json(response);
 });
 
+app.get("/branches/:branchId/lists", async (c) => {
+  const branchId = c.req.param("branchId");
+
+  const token = c.req.header("Authorization") ?? "";
+
+  const supabaseClient = buildClient({ token });
+
+  const service = new BranchService(supabaseClient);
+
+  const response = await service.getBranchLists(branchId);
+
+  return c.json(response);
+});
+
 Deno.serve(app.fetch);

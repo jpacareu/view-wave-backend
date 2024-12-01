@@ -18,6 +18,20 @@ app.post("/devices/register", async (c) => {
   return c.json(response);
 });
 
+app.put("/devices/:deviceId/unassign-list", async (c) => {
+  const deviceId = c.req.param("deviceId") ?? "";
+
+  const token = c.req.header("Authorization") ?? "";
+
+  const supabaseClient = buildClient({ token });
+
+  const service = new DeviceService(supabaseClient);
+
+  const response = await service.unassignList(deviceId);
+
+  return c.json(response);
+});
+
 app.delete("/devices/:deviceId", async (c) => {
   const deviceId = c.req.param("deviceId") ?? "";
 

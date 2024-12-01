@@ -34,4 +34,12 @@ export class BranchRepository extends BaseRepository<"branches"> {
 
     return data;
   };
+
+  getBranchLists = async (branchId: string) => {
+    const { data, error } = await this.supabase.rpc(
+      "get_branch_lists",
+      {
+        branch_ids: branchId,
+      },
+    );
 }
