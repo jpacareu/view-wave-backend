@@ -17,6 +17,17 @@ export class UserRepository extends BaseRepository<"users"> {
     return data.user;
   };
 
+  getUserEntities = async () => {
+    const { data, error } = await this.supabase
+      .rpc("get_user_entities");
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  };
+
   getUserByEmail = async (
     email: string,
   ) => {

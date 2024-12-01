@@ -4,14 +4,14 @@ import UserService from "./service.ts";
 
 const app = new Hono();
 
-app.post("/users", async (c) => {
-  const newUser = await c.req.json();
+app.get("users/entities", async (c) => {
+  const token = c.req.header("Authorization") ?? "";
 
-  const supabaseClient = buildClient();
+  const supabaseClient = buildClient({ token });
 
   const service = new UserService(supabaseClient);
 
-  const response = await service.createUser(newUser);
+  const response = await service.getUserEntities();
 
   return c.json(response);
 });

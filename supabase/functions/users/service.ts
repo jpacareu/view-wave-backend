@@ -28,16 +28,61 @@ export default class UserService {
     });
   };
 
+  getUserEntities = async () => {
+    const userEntities = await this.userRepository.getUserEntities();
+
+    if (!userEntities) {
+      return this.getResponseByEvent("USER_NOT_FOUND");
+    }
+
+    if (!userEntities.organization) {
+      return this.getResponseByEvent("USER_ORGANIZATION_NOT_FOUND");
+    }
+
+    if (!userEntities.branches) {
+      return this.getResponseByEvent("USER_BRANCHES_NOT_FOUND");
+    }
+
+    return this.getResponseByEvent("USER_ENTITIES", userEntities);
+  };
+
   getResponseByEvent = (event: string, data?: any) => {
     switch (event) {
-      case "USER_CRETED":
+      case "USER_NOT_FOUND":
         return ({
-          event: "USER_CRETED",
+          event: "USER_NOT_FOUND",
           payload: {
             message: "User created",
             ...data,
           },
         });
+      case "USER_ORGANIZATION_NOT_FOUND":
+        return ({
+          event: "USER_ORGANIZATION_NOT_FOUND",
+          payload: {
+            message: "User organization not found",
+            ...data,
+          },
+        });
+
+      case "USER_BRANCHES_NOT_FOUND":
+        return ({
+          event: "USER_BRANCHES_NOT_FOUND",
+          payload: {
+            message: "User branches not found",
+            ...data,
+          },
+        });
+      case "USER_ENTITIES":
+        return ({
+          event: "USER_ENTITIES",
+          payload: {
+            message: "User entities",
+            ...data,
+          },
+        });
+      default:
+        throw new Error(`Invalid event: ${event}`);
     }
   };
 }
