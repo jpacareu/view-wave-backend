@@ -9,13 +9,7 @@ app.get("/lists/:deviceId", async (c) => {
 
   const token = c.req.header("Authorization") ?? "";
 
-  const supabaseClient = buildClient({
-    global: {
-      headers: {
-        Authorization: token,
-      },
-    },
-  });
+  const supabaseClient = buildClient({ token });
 
   const service = new DeviceService(supabaseClient);
 
