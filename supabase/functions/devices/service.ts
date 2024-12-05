@@ -103,73 +103,73 @@ export default class DeviceService {
       case "CODE_NOT_FOUND":
         return ({
           event: "CODE_NOT_FOUND",
+          message: "Code not valid, please provide a valid code",
           payload: {
-            message: "Code not valid, please provide a valid code",
             ...data,
           },
         });
       case "BRANCH_NOT_FOUND":
         return ({
           event: "BRANCH_NOT_FOUND",
+          message:
+            "Branch not valid, please provide a valid branch to register the device",
           payload: {
-            message:
-              "Branch not valid, please provide a valid branch to register the device",
             ...data,
           },
         });
       case "DEVICE_FOUND":
         return ({
           event: "DEVICE_FOUND",
+          message: "Device found",
           payload: {
-            message: "Device found",
             ...data,
           },
         });
       case "DEVICE_NOT_FOUND":
         return ({
           event: "DEVICE_NOT_FOUND",
+          message: "Device not found for that code value",
           payload: {
-            message: "Device not found for that code value",
             ...data,
           },
         });
       case "ORGANIZATION_NOT_FOUND":
         return ({
           event: "ORGANIZATION_NOT_FOUND",
+          message: "Organization not found for that branch",
           payload: {
-            message: "Organization not found for that branch",
             ...data,
           },
         });
       case "DEVICE_ALREADY_ASSIGNED":
         return ({
           event: "DEVICE_ALREADY_ASSIGNED",
+          message: "This device is already assigned",
           payload: {
-            message: "This device is already assigned",
             ...data,
           },
         });
       case "DEVICE_NOT_VALID":
         return ({
           event: "DEVICE_NOT_VALID",
+          message: "Device id not valid",
           payload: {
-            message: "Device id not valid",
             ...data,
           },
         });
       case "DEVICE_UNASSIGNED":
         return ({
           event: "DEVICE_UNASSIGNED",
+          message: "Device unassigned",
           payload: {
-            message: "Device unassigned",
             ...data,
           },
         });
       case "DEVICE_ASSIGNED":
         return ({
           event: "DEVICE_ASSIGNED",
+          message: "Device assigned",
           payload: {
-            message: "Device assigned",
             ...data,
           },
         });

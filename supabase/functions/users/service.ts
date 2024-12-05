@@ -1,6 +1,13 @@
 import { SupabaseClient } from "jsr:@supabase/supabase-js@2";
 import { UserRepository } from "../_repositories/user.ts";
 import { InsertPayload } from "../custom.types.ts";
+import { ResponseDto } from "../dto.types.ts";
+import {
+  ResponseUserCreated,
+  USER_EVENTS,
+  UserEvent,
+  UserPayload,
+} from "./types.ts";
 
 export default class UserService {
   private userRepository: UserRepository;
@@ -14,7 +21,7 @@ export default class UserService {
       id: string;
       email: string;
     }>,
-  ) => {
+  ): Promise<ResponseUserCreated> => {
     const { id, email } = body.record;
 
     await this.userRepository.create({
@@ -22,7 +29,7 @@ export default class UserService {
       email,
     });
 
-    return this.getResponseByEvent("USER_CRETED", {
+    return this.getResponseByEvent(USER_EVENTS.USER_CREATED, {
       id,
       email,
     });
@@ -48,27 +55,27 @@ export default class UserService {
 
   getResponseByEvent = (event: string, data?: any) => {
     switch (event) {
-      case "USER_CRETED":
+      case "USER_CREATED":
         return ({
-          event: "USER_CRETED",
+          event: "USER_CREATED",
+          message: "User created",
           payload: {
-            message: "User created",
             ...data,
           },
         });
       case "USER_HAS_NO_ENTITIES":
         return ({
           event: "USER_HAS_NO_ENTITIES",
+          message: "User has no entities",
           payload: {
-            message: "User has no entities",
             ...data,
           },
         });
       case "USER_ORGANIZATION_NOT_FOUND":
         return ({
           event: "USER_ORGANIZATION_NOT_FOUND",
+          message: "User organization not found",
           payload: {
-            message: "User organization not found",
             ...data,
           },
         });
@@ -76,16 +83,16 @@ export default class UserService {
       case "USER_BRANCHES_NOT_FOUND":
         return ({
           event: "USER_BRANCHES_NOT_FOUND",
+          message: "User branches not found",
           payload: {
-            message: "User branches not found",
             ...data,
           },
         });
       case "USER_ENTITIES":
         return ({
           event: "USER_ENTITIES",
+          message: "User entities",
           payload: {
-            message: "User entities",
             ...data,
           },
         });
