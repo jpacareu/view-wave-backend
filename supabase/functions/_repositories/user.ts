@@ -1,7 +1,7 @@
-import { SupabaseClient, User } from "jsr:@supabase/supabase-js@2";
+import { SupabaseClient } from "jsr:@supabase/supabase-js@2";
 import { BaseRepository } from "../_shared/base-respository.ts";
 import { Database } from "../types.ts";
-import { UserEntities } from "../user.types.ts";
+import { UserEntities } from "../users/types.ts";
 
 export class UserRepository extends BaseRepository<"users"> {
   constructor(supabase: SupabaseClient<Database>) {
