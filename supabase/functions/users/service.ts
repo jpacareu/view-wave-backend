@@ -1,13 +1,7 @@
 import { SupabaseClient } from "jsr:@supabase/supabase-js@2";
 import { UserRepository } from "../_repositories/user.ts";
 import { InsertPayload } from "../custom.types.ts";
-import { ResponseDto } from "../dto.types.ts";
-import {
-  ResponseUserCreated,
-  USER_EVENTS,
-  UserEvent,
-  UserPayload,
-} from "./types.ts";
+import { USER_EVENTS, UserEventValue, UserResponseByEvent } from "./types.ts";
 
 export default class UserService {
   private userRepository: UserRepository;
@@ -21,7 +15,7 @@ export default class UserService {
       id: string;
       email: string;
     }>,
-  ): Promise<ResponseUserCreated> => {
+  ) => {
     const { id, email } = body.record;
 
     await this.userRepository.create({
@@ -39,63 +33,65 @@ export default class UserService {
     const userEntities = await this.userRepository.getUserEntities();
 
     if (!userEntities) {
-      return this.getResponseByEvent("USER_HAS_NO_ENTITIES");
+      return this.getResponseByEvent(USER_EVENTS.USER_HAS_NO_ENTITIES);
     }
 
     if (!userEntities.organization) {
-      return this.getResponseByEvent("USER_ORGANIZATION_NOT_FOUND");
+      return this.getResponseByEvent(USER_EVENTS.USER_ORGANIZATION_NOT_FOUND);
     }
 
     if (!userEntities.branches?.length) {
-      return this.getResponseByEvent("USER_BRANCHES_NOT_FOUND");
+      return this.getResponseByEvent(USER_EVENTS.USER_BRANCHES_NOT_FOUND);
     }
 
-    return this.getResponseByEvent("USER_ENTITIES", userEntities);
+    return this.getResponseByEvent(USER_EVENTS.USER_ENTITIES, userEntities);
   };
 
-  getResponseByEvent = (event: string, data?: any) => {
+  getResponseByEvent = <E extends UserEventValue>(
+    event: E,
+    data: any = null,
+  ): UserResponseByEvent<E> => {
     switch (event) {
-      case "USER_CREATED":
-        return ({
-          event: "USER_CREATED",
+      case USER_EVENTS.USER_CREATED:
+        return {
+          event,
           message: "User created",
           payload: {
             ...data,
           },
-        });
-      case "USER_HAS_NO_ENTITIES":
-        return ({
-          event: "USER_HAS_NO_ENTITIES",
+        } as UserResponseByEvent<E>;
+      case USER_EVENTS.USER_HAS_NO_ENTITIES:
+        return {
+          event,
           message: "User has no entities",
           payload: {
             ...data,
           },
-        });
-      case "USER_ORGANIZATION_NOT_FOUND":
-        return ({
-          event: "USER_ORGANIZATION_NOT_FOUND",
+        } as UserResponseByEvent<E>;
+      case USER_EVENTS.USER_ORGANIZATION_NOT_FOUND:
+        return {
+          event,
           message: "User organization not found",
           payload: {
             ...data,
           },
-        });
-
-      case "USER_BRANCHES_NOT_FOUND":
-        return ({
-          event: "USER_BRANCHES_NOT_FOUND",
+        } as UserResponseByEvent<E>;
+      case USER_EVENTS.USER_BRANCHES_NOT_FOUND:
+        return {
+          event,
           message: "User branches not found",
           payload: {
             ...data,
           },
-        });
-      case "USER_ENTITIES":
-        return ({
-          event: "USER_ENTITIES",
+        } as UserResponseByEvent<E>;
+      case USER_EVENTS.USER_ENTITIES:
+        return {
+          event,
           message: "User entities",
           payload: {
             ...data,
           },
-        });
+        } as UserResponseByEvent<E>;
       default:
         throw new Error(`Invalid event: ${event}`);
     }
