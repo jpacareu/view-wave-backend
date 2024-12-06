@@ -30,7 +30,8 @@ export default class StartupService {
         event: "PLAY_LIST",
         message: "Device is assigned",
         payload: {
-          list: DEFAULT_LIST,
+          type: "PLAY_LIST",
+          playlist: DEFAULT_LIST,
         },
       });
     }
@@ -41,7 +42,8 @@ export default class StartupService {
       event: "STARTUP",
       message: "Please enter the code or scan the QR to continue",
       payload: {
-        code, // Mobile app: Transform this to a QR on Client
+        type: "STARTUP",
+        code,
       },
     });
   };

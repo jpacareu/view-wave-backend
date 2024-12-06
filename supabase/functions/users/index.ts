@@ -17,7 +17,6 @@ app.get("users/entities", async (c) => {
   return c.json(response);
 });
 
-// WIP
 app.put("users/branches/activate", async (c) => {
   const token = c.req.header("Authorization") ?? "";
   const body = await c.req.json();

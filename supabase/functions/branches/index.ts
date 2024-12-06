@@ -1,5 +1,4 @@
 import { Hono } from "jsr:@hono/hono";
-import { HTTPException } from "https://deno.land/x/hono@v4.3.11/http-exception.ts";
 
 import buildClient from "../_shared/supabase-client.ts";
 import BranchService from "./service.ts";
