@@ -270,14 +270,17 @@ export type Database = {
       users_branches: {
         Row: {
           branch_id: string
+          is_active: boolean | null
           user_id: string
         }
         Insert: {
           branch_id: string
+          is_active?: boolean | null
           user_id: string
         }
         Update: {
           branch_id?: string
+          is_active?: boolean | null
           user_id?: string
         }
         Relationships: [

@@ -57,4 +57,30 @@ export class UserRepository extends BaseRepository<"users"> {
 
     return data;
   };
+
+  setUserActiveBranch = async (
+    branchId: string,
+  ) => {
+    const userResponse = await this.supabase.auth.getUser();
+
+    if (userResponse.error) {
+      throw userResponse.error;
+    }
+
+    const { id: userId } = userResponse.data.user;
+
+    // update with rpc
+    const { data, error } = await this.supabase
+      .from("users_branches")
+      .update({ is_active: true })
+      .eq("user_id", userId)
+      .eq("branch_id", branchId)
+      .maybeSingle();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  };
 }

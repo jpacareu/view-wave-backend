@@ -47,6 +47,10 @@ export default class UserService {
     return this.getResponseByEvent(USER_EVENTS.USER_ENTITIES, userEntities);
   };
 
+  setActiveBranch = async (branchId: string) => {
+    return {};
+  };
+
   getResponseByEvent = <E extends UserEventValue>(
     event: E,
     data: any = null,

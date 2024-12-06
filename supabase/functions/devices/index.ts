@@ -1,6 +1,7 @@
 import { Hono } from "jsr:@hono/hono";
 import buildClient from "../_shared/supabase-client.ts";
 import DeviceService from "./service.ts";
+import { errorHandler } from "../_shared/error-handling.ts";
 
 const app = new Hono();
 
@@ -31,5 +32,7 @@ app.delete("/devices/:deviceId", async (c) => {
 
   return c.json(response);
 });
+
+app.onError(errorHandler);
 
 Deno.serve(app.fetch);

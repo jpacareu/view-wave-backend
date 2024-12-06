@@ -1,6 +1,7 @@
 import { Hono } from "jsr:@hono/hono";
 import buildClient from "../_shared/supabase-client.ts";
 import UserService from "../users/service.ts";
+import { errorHandler } from "../_shared/error-handling.ts";
 
 const app = new Hono();
 
@@ -15,5 +16,7 @@ app.post("/new-user-webhook", async (c) => {
 
   return c.json(response);
 });
+
+app.onError(errorHandler);
 
 Deno.serve(app.fetch);
