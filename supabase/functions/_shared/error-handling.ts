@@ -16,7 +16,7 @@ export const errorHandler: ErrorHandler = (err, c) => {
   const status = err instanceof HTTPException ? err.status : 500;
 
   return c.json({
-    event: "INTERNAL_SERVER_ERROR",
+    event: "RESPONSE_ERROR",
     message: message,
     payload: {
       status,
