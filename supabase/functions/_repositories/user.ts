@@ -12,7 +12,7 @@ export class UserRepository extends BaseRepository<"users"> {
     const { data, error } = await this.supabase.auth.getUser();
 
     if (error) {
-      throw error;
+      throw Error(error.message);
     }
 
     return data.user;
@@ -23,7 +23,7 @@ export class UserRepository extends BaseRepository<"users"> {
       .rpc("get_user_entities");
 
     if (error) {
-      throw error;
+      throw Error(error.message);
     }
 
     return data as UserEntities;
@@ -37,7 +37,7 @@ export class UserRepository extends BaseRepository<"users"> {
       .eq("email", email);
 
     if (error) {
-      throw error;
+      throw Error(error.message);
     }
 
     return data;
@@ -52,33 +52,22 @@ export class UserRepository extends BaseRepository<"users"> {
       .maybeSingle();
 
     if (error) {
-      throw error;
+      throw Error(error.message);
     }
 
     return data;
   };
 
-  setUserActiveBranch = async (
+  setActiveBranch = async (
     branchId: string,
   ) => {
-    const userResponse = await this.supabase.auth.getUser();
-
-    if (userResponse.error) {
-      throw userResponse.error;
-    }
-
-    const { id: userId } = userResponse.data.user;
-
-    // update with rpc
     const { data, error } = await this.supabase
-      .from("users_branches")
-      .update({ is_active: true })
-      .eq("user_id", userId)
-      .eq("branch_id", branchId)
-      .maybeSingle();
+      .rpc("set_active_branch", {
+        target_branch_id: branchId,
+      });
 
     if (error) {
-      throw error;
+      throw Error(error.message);
     }
 
     return data;

@@ -48,7 +48,17 @@ export default class UserService {
   };
 
   setActiveBranch = async (branchId: string) => {
-    return {};
+    if (!branchId) {
+      return this.getResponseByEvent(USER_EVENTS.USER_ACTIVE_BRANCH_INVALID);
+    }
+
+    await this.userRepository.setActiveBranch(
+      branchId,
+    );
+
+    return this.getResponseByEvent(USER_EVENTS.USER_SET_ACTIVE_BRANCH, {
+      branchId,
+    });
   };
 
   getResponseByEvent = <E extends UserEventValue>(
@@ -96,6 +106,24 @@ export default class UserService {
             ...data,
           },
         } as UserResponseByEvent<E>;
+      case USER_EVENTS.USER_SET_ACTIVE_BRANCH:
+        return {
+          event,
+          message: "User set active branch",
+          payload: {
+            ...data,
+          },
+        } as UserResponseByEvent<E>;
+
+      case USER_EVENTS.USER_ACTIVE_BRANCH_INVALID:
+        return {
+          event,
+          message: "Branch id is not valid",
+          payload: {
+            ...data,
+          },
+        } as UserResponseByEvent<E>;
+
       default:
         throw new Error(`Invalid event: ${event}`);
     }

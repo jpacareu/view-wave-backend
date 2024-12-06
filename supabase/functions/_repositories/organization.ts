@@ -14,7 +14,7 @@ export class OrganizationRepository extends BaseRepository<"organizations"> {
             .maybeSingle();
 
         if (error) {
-            throw error;
+            throw Error(error.message);
         }
 
         return data;

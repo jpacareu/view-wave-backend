@@ -9,9 +9,8 @@ import { ErrorHandler } from "jsr:@hono/hono/types";
  * @returns A JSON response containing the error event, message, and payload with status.
  */
 export const errorHandler: ErrorHandler = (err, c) => {
-  const message: string = err instanceof HTTPException
-    ? err.message
-    : "Something went wrong, we are working on it";
+  const message: string = err.message ??
+    "Something went wrong, we are working on it";
   const cause = err instanceof HTTPException ? err.cause : "unknown";
   const status = err instanceof HTTPException ? err.status : 500;
 

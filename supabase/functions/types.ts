@@ -325,6 +325,12 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: Json
       }
+      set_active_branch: {
+        Args: {
+          target_branch_id: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       category: "dentist" | "hair_salon" | "cuban_restaurant"
