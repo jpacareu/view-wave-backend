@@ -1,4 +1,4 @@
-import { Hono } from "jsr:@hono/hono";
+import { Hono } from "npm:hono";
 
 import buildClient from "../_shared/supabase-client.ts";
 import BranchService from "./service.ts";

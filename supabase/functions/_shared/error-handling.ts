@@ -1,5 +1,15 @@
-import { HTTPException } from "https://deno.land/x/hono@v4.3.11/http-exception.ts";
-import { ErrorHandler } from "jsr:@hono/hono/types";
+import { BlankEnv } from "jsr:@hono/hono/types";
+import { ErrorHandler } from "npm:hono";
+import * as Sentry from "npm:@sentry/deno";
+
+Sentry.init({
+  dsn: Deno.env.get("SENTRY_DSN"),
+  tracesSampleRate: 1.0,
+  integrations: [],
+});
+
+Sentry.setTag("region", Deno.env.get("SB_REGION"));
+Sentry.setTag("execution_id", Deno.env.get("SB_EXECUTION_ID"));
 
 /**
  * Handles errors by returning a JSON response with an error message and status.
@@ -8,18 +18,15 @@ import { ErrorHandler } from "jsr:@hono/hono/types";
  * @param c - The context object used to construct the JSON response.
  * @returns A JSON response containing the error event, message, and payload with status.
  */
-export const errorHandler: ErrorHandler = (err, c) => {
-  const message: string = err.message ??
-    "Something went wrong, we are working on it";
-  const cause = err instanceof HTTPException ? err.cause : "unknown";
-  const status = err instanceof HTTPException ? err.status : 500;
+export const errorHandler: ErrorHandler<BlankEnv> = (e, c) => {
+  Sentry.captureException(e);
 
   return c.json({
     event: "RESPONSE_ERROR",
-    message: message,
-    payload: {
-      status,
-      cause,
+    error: {
+      type: "ERROR",
+      message: "Something went wrong, we are working on it",
     },
+    payload: null,
   }, 200);
 };

@@ -19,3 +19,8 @@ export type DeletePayload<T> = {
   record: null;
   old_record: T;
 };
+
+export const ERROR_TYPE = {
+  WARNING: "WARNING",
+  ERROR: "ERROR",
+} as const;
