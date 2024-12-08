@@ -14,7 +14,7 @@ export class BranchRepository extends BaseRepository<"branches"> {
       .maybeSingle();
 
     if (error) {
-      throw error;
+      throw Error(error.message);
     }
 
     return data;
@@ -29,7 +29,7 @@ export class BranchRepository extends BaseRepository<"branches"> {
     );
 
     if (error) {
-      throw error;
+      throw Error(error.message);
     }
 
     return data;

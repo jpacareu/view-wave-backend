@@ -34,16 +34,16 @@ export default class DeviceService {
       case "DEVICE_NOT_VALID":
         return ({
           event: "DEVICE_NOT_VALID",
+          message: "Device id not valid",
           payload: {
-            message: "Device id not valid",
             ...data,
           },
         });
       case "DEVICE_UNASSIGNED":
         return ({
           event: "DEVICE_UNASSIGNED",
+          message: "Device unassigned",
           payload: {
-            message: "Device unassigned",
             ...data,
           },
         });

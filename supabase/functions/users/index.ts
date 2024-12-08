@@ -1,19 +1,37 @@
-import { Hono } from "jsr:@hono/hono";
+import { Hono } from "npm:hono";
 import buildClient from "../_shared/supabase-client.ts";
 import UserService from "./service.ts";
+import { errorHandler } from "../_shared/error-handling.ts";
 
 const app = new Hono();
 
-app.post("/users", async (c) => {
-  const newUser = await c.req.json();
+app.get("users/entities", async (c) => {
+  const token = c.req.header("Authorization") ?? "";
 
-  const supabaseClient = buildClient();
+  const supabaseClient = buildClient({ token });
 
   const service = new UserService(supabaseClient);
 
-  const response = await service.createUser(newUser);
+  const response = await service.getUserEntities();
 
   return c.json(response);
 });
+
+app.put("users/branches/activate", async (c) => {
+  const token = c.req.header("Authorization") ?? "";
+  const body = await c.req.json();
+
+  const { branch_id: branchId } = body;
+
+  const supabaseClient = buildClient({ token });
+
+  const service = new UserService(supabaseClient);
+
+  const response = await service.setActiveBranch(branchId);
+
+  return c.json(response);
+});
+
+app.onError(errorHandler);
 
 Deno.serve(app.fetch);

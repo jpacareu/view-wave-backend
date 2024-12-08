@@ -25,16 +25,16 @@ export default class BranchService {
       case "BRANCH_NOT_PRESENT":
         return ({
           event: "BRANCH_NOT_PRESENT",
+          message: "Branch id not valid",
           payload: {
-            message: "Branch id not valid",
             ...data,
           },
         });
       case "BRANCH_DEVICES_LIST":
         return ({
           event: "BRANCH_DEVICES_LIST",
+          message: "List of devices",
           payload: {
-            message: "List of devices",
             ...data,
           },
         });

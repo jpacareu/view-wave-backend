@@ -40,6 +40,11 @@ Recreates your DB with migration file
 
 - supabase db reset
 
+Update types
+
+- supabase gen types typescript --project-id "nceyjyktohosdlvbkwca" --schema public > supabase/functions/types.ts
+
+
 ### Push local DB changes to remote DB:
 
 Create a migration file that contains your new change:

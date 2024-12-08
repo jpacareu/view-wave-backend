@@ -16,7 +16,7 @@ export class DeviceRepository extends BaseRepository<"devices"> {
       .maybeSingle();
 
     if (error) {
-      throw error;
+      throw Error(error.message);
     }
 
     return data;
@@ -31,7 +31,7 @@ export class DeviceRepository extends BaseRepository<"devices"> {
     );
 
     if (error) {
-      throw error;
+      throw Error(error.message);
     }
 
     return data;
@@ -47,7 +47,7 @@ export class DeviceRepository extends BaseRepository<"devices"> {
       .maybeSingle();
 
     if (error) {
-      throw error;
+      throw Error(error.message);
     }
 
     return data;
