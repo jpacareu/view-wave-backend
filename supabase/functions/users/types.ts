@@ -1,4 +1,4 @@
-import { ERROR_TYPE } from "../custom.types.ts";
+import { ErrorResponse, SuccessResponse } from "../custom.types.ts";
 import { Tables } from "../types.ts";
 
 export type UserEntities = {
@@ -33,63 +33,43 @@ export type UserEventError =
   typeof USER_EVENTS.ERROR[keyof typeof USER_EVENTS.ERROR];
 
 export type UserSuccessResponseByEvent<E extends UserEventSuccess> = E extends
-  typeof USER_EVENTS.SUCCESS.USER_CREATED ? {
-    event: typeof USER_EVENTS.SUCCESS.USER_CREATED;
-    message: "User created successfully";
-    error: null;
-    payload: { id: string; email: string };
-  }
-  : E extends typeof USER_EVENTS.SUCCESS.USER_ENTITIES ? {
-      event: typeof USER_EVENTS.SUCCESS.USER_ENTITIES;
-      message: "";
-      error: null;
-      payload: UserEntities;
-    }
-  : E extends typeof USER_EVENTS.SUCCESS.USER_SET_ACTIVE_BRANCH ? {
-      event: typeof USER_EVENTS.SUCCESS.USER_SET_ACTIVE_BRANCH;
-      message: "Branch changed";
-      error: null;
-      payload: { branch_id: string };
-    }
+  typeof USER_EVENTS.SUCCESS.USER_CREATED ? SuccessResponse<
+    typeof USER_EVENTS.SUCCESS.USER_CREATED,
+    "User created successfully",
+    { id: string; email: string }
+  >
+  : E extends typeof USER_EVENTS.SUCCESS.USER_ENTITIES ? SuccessResponse<
+      typeof USER_EVENTS.SUCCESS.USER_ENTITIES,
+      "",
+      UserEntities
+    >
+  : E extends typeof USER_EVENTS.SUCCESS.USER_SET_ACTIVE_BRANCH // {
+    ? SuccessResponse<
+      typeof USER_EVENTS.SUCCESS.USER_SET_ACTIVE_BRANCH,
+      "Branch changed",
+      { branch_id: string }
+    >
   : never;
 
 export type UserErrorResponseByEvent<E extends UserEventError> = E extends
-  typeof USER_EVENTS.ERROR.USER_HAS_NO_ENTITIES ? {
-    event: typeof USER_EVENTS.ERROR.USER_HAS_NO_ENTITIES;
-    message: null;
-    error: {
-      type: typeof ERROR_TYPE.ERROR;
-      message: "User has no entities";
-    };
-    payload: null;
-  }
-  : E extends typeof USER_EVENTS.ERROR.USER_ORGANIZATION_NOT_FOUND ? {
-      event: typeof USER_EVENTS.ERROR.USER_ORGANIZATION_NOT_FOUND;
-      message: null;
-      error: {
-        type: typeof ERROR_TYPE.ERROR;
-        message: "User organization not found";
-      };
-      payload: null;
-    }
-  : E extends typeof USER_EVENTS.ERROR.USER_BRANCHES_NOT_FOUND ? {
-      event: typeof USER_EVENTS.ERROR.USER_BRANCHES_NOT_FOUND;
-      message: null;
-      error: {
-        type: typeof ERROR_TYPE.ERROR;
-        message: "User branches not found";
-      };
-      payload: null;
-    }
-  : E extends typeof USER_EVENTS.ERROR.USER_ACTIVE_BRANCH_INVALID ? {
-      event: typeof USER_EVENTS.ERROR.USER_ACTIVE_BRANCH_INVALID;
-      message: null;
-      error: {
-        type: typeof ERROR_TYPE.ERROR;
-        message: "Branch id is not valid";
-      };
-      payload: null;
-    }
+  typeof USER_EVENTS.ERROR.USER_HAS_NO_ENTITIES ? ErrorResponse<
+    typeof USER_EVENTS.ERROR.USER_HAS_NO_ENTITIES,
+    "User has no entities"
+  >
+  : E extends typeof USER_EVENTS.ERROR.USER_ORGANIZATION_NOT_FOUND
+    ? ErrorResponse<
+      typeof USER_EVENTS.ERROR.USER_ORGANIZATION_NOT_FOUND,
+      "User organization not found"
+    >
+  : E extends typeof USER_EVENTS.ERROR.USER_BRANCHES_NOT_FOUND ? ErrorResponse<
+      typeof USER_EVENTS.ERROR.USER_BRANCHES_NOT_FOUND,
+      "User branches not found"
+    >
+  : E extends typeof USER_EVENTS.ERROR.USER_ACTIVE_BRANCH_INVALID
+    ? ErrorResponse<
+      typeof USER_EVENTS.ERROR.USER_ACTIVE_BRANCH_INVALID,
+      "Branch id is not valid"
+    >
   : never;
 
 export type UserResponsePayload = UserSuccessResponseByEvent<

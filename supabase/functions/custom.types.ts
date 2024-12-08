@@ -24,3 +24,20 @@ export const ERROR_TYPE = {
   WARNING: "WARNING",
   ERROR: "ERROR",
 } as const;
+
+export type ErrorResponse<T, U> = {
+  event: T;
+  message: null;
+  error: {
+    type: typeof ERROR_TYPE.ERROR;
+    message: U;
+  };
+  payload: null;
+};
+
+export type SuccessResponse<T, U, V = null> = {
+  event: T;
+  message: U;
+  error: null;
+  payload: V;
+};
