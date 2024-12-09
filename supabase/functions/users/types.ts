@@ -81,3 +81,7 @@ export type UserSuccessMessage = NonNullable<
     UserEventSuccess
   >["message"]
 >;
+
+export type UserErrorMessage = NonNullable<
+  UserErrorResponseByEvent<UserEventError>["error"]["message"]
+>;

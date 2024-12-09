@@ -1,8 +1,10 @@
 import { SupabaseClient } from "jsr:@supabase/supabase-js@2";
 import { UserRepository } from "../_repositories/user.ts";
 import { ERROR_TYPE, InsertPayload } from "../custom.types.ts";
+import { BaseService } from "../_shared/base-service.ts";
 import {
   USER_EVENTS,
+  UserErrorMessage,
   UserErrorResponseByEvent,
   UserEventError,
   UserEventSuccess,
@@ -11,10 +13,14 @@ import {
   UserSuccessResponseByEvent,
 } from "./types.ts";
 
-export default class UserService {
+export default class UserService extends BaseService<
+  UserSuccessResponseByEvent<UserEventSuccess>,
+  UserErrorResponseByEvent<UserEventError>
+> {
   private userRepository: UserRepository;
 
   constructor(supabaseClient: SupabaseClient) {
+    super();
     this.userRepository = new UserRepository(supabaseClient);
   }
 
@@ -127,7 +133,7 @@ export default class UserService {
     }
   };
 
-  private getErrorMessages(event: UserEventError): string {
+  getErrorMessages(event: UserEventError): UserErrorMessage {
     switch (event) {
       case USER_EVENTS.ERROR.USER_HAS_NO_ENTITIES:
         return "User has no entities";
@@ -140,7 +146,7 @@ export default class UserService {
     }
   }
 
-  private getSuccessMessages(event: UserEventSuccess): UserSuccessMessage {
+  getSuccessMessages(event: UserEventSuccess): UserSuccessMessage {
     switch (event) {
       case USER_EVENTS.SUCCESS.USER_CREATED:
         return "User created successfully";
@@ -150,8 +156,4 @@ export default class UserService {
         return "Branch changed";
     }
   }
-
-  assertNever = (event: never): never => {
-    throw new Error(`Invalid event: ${event}`);
-  };
 }
