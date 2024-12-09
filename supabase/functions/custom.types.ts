@@ -28,11 +28,11 @@ export const ERROR_TYPE = {
 export type ErrorResponse<T, U> = {
   event: T;
   message: null;
+  payload: null;
   error: {
     type: typeof ERROR_TYPE.ERROR;
     message: U;
   };
-  payload: null;
 };
 
 export type SuccessResponse<T, U, V = null> = {

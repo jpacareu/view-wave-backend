@@ -87,9 +87,9 @@ export default class UserService extends BaseService<
     });
   };
 
-  getErrorResponse = <E extends UserEventError>(
-    event: E,
-  ): UserErrorResponseByEvent<E> => {
+  getErrorResponse = (
+    event: UserEventError,
+  ): UserErrorResponseByEvent<UserEventError> => {
     switch (event) {
       // Error
       case USER_EVENTS.ERROR.USER_HAS_NO_ENTITIES:
@@ -104,17 +104,17 @@ export default class UserService extends BaseService<
             type: ERROR_TYPE.ERROR,
             message: this.getErrorMessages(event),
           },
-        } as UserErrorResponseByEvent<E>;
+        } as UserErrorResponseByEvent<UserEventError>;
 
       default:
         return this.assertNever(event);
     }
   };
 
-  getSuccessResponse = <E extends UserEventSuccess>(
-    event: E,
+  getSuccessResponse = (
+    event: UserEventSuccess,
     data: UserResponsePayload,
-  ): UserSuccessResponseByEvent<E> => {
+  ): UserSuccessResponseByEvent<UserEventSuccess> => {
     switch (event) {
       case USER_EVENTS.SUCCESS.USER_CREATED:
       case USER_EVENTS.SUCCESS.USER_ENTITIES:
@@ -126,7 +126,7 @@ export default class UserService extends BaseService<
           payload: {
             ...data,
           },
-        } as UserSuccessResponseByEvent<E>;
+        } as UserSuccessResponseByEvent<UserEventSuccess>;
 
       default:
         return this.assertNever(event);

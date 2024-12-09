@@ -6,7 +6,7 @@ import { errorHandler } from "../_shared/error-handling.ts";
 const app = new Hono();
 
 /**
- * This method should not be JWT protected
+ * This method should be public
  */
 app.get("/startup/:androidId", async (c) => {
   const supabaseClient = buildClient();
