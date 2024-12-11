@@ -65,4 +65,21 @@ export class DeviceRepository extends BaseRepository<"devices"> {
   ) => {
     return this.update(id, { ...payload });
   };
+
+  getDeviceByIdAndListId = async (
+    id: string,
+    listId: string,
+  ) => {
+    const { data, error } = await this.table
+      .select("status")
+      .eq("id", id)
+      .eq("list_id", listId)
+      .maybeSingle();
+
+    if (error) {
+      throw Error(error.message);
+    }
+
+    return data;
+  };
 }

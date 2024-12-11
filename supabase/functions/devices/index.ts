@@ -19,6 +19,21 @@ app.post("/devices/register", async (c) => {
   return c.json(response);
 });
 
+app.get("/devices/:deviceId/list/:listId", async (c) => {
+  const deviceId = c.req.param("deviceId") ?? "";
+  const listId = c.req.param("listId") ?? "";
+
+  const token = c.req.header("Authorization") ?? "";
+
+  const supabaseClient = buildClient({ token });
+
+  const service = new DeviceService(supabaseClient);
+
+  const response = await service.getDevicePlayList(deviceId, listId);
+
+  return c.json(response);
+});
+
 app.delete("/devices/:deviceId", async (c) => {
   const deviceId = c.req.param("deviceId") ?? "";
 

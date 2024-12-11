@@ -3,6 +3,7 @@ import { DeviceRepository } from "../_repositories/device.ts";
 import { DEVICE_STATUS } from "../_shared/constants.ts";
 import { UserRepository } from "../_repositories/user.ts";
 import { BranchRepository } from "../_repositories/branch.ts";
+import { DEFAULT_LIST } from "../_configs/default.ts";
 
 export default class DeviceService {
   private deviceRepository: DeviceRepository;
@@ -88,13 +89,43 @@ export default class DeviceService {
       code_exp: null,
     };
 
-    const value = await this.deviceRepository.assignDeviceToBranch(
+    await this.deviceRepository.assignDeviceToBranch(
       device.id,
       newDevice,
     );
 
+    return this.getResponseByEvent("DEVICE_ASSIGNED", {});
+  };
+
+  getDevicePlayList = async (deviceId: string, listId: string) => {
+    if (!deviceId) {
+      // TODO: ADD CASE FOR DEVICE INVALID
+      return this.getResponseByEvent("DEVICE_INVALID");
+    }
+
+    if (!listId) {
+      // TODO: ADD CASE FOR LIST INVALID
+      return this.getResponseByEvent("LIST_INVALID");
+    }
+
+    const device = await this.deviceRepository.getDeviceByIdAndListId(
+      deviceId,
+      listId,
+    );
+
+    if (!device) {
+      return this.getResponseByEvent("DEVICE_NOT_FOUND_FOR_LIST");
+    }
+
+    if (device.status !== DEVICE_STATUS.ASSIGNED) {
+      return this.getResponseByEvent("DEVICE_UNASSIGNED");
+    }
+
     return this.getResponseByEvent("DEVICE_ASSIGNED", {
-      value,
+      data: {
+        type: "PLAY_LIST",
+        playlist: DEFAULT_LIST,
+      },
     });
   };
 
@@ -173,6 +204,32 @@ export default class DeviceService {
             ...data,
           },
         });
+      case "DEVICE_INVALID":
+        return ({
+          event: "DEVICE_INVALID",
+          message: "Device id not valid",
+          payload: {
+            ...data,
+          },
+        });
+
+      case "LIST_INVALID":
+        return ({
+          event: "LIST_INVALID",
+          message: "List id not valid",
+          payload: {
+            ...data,
+          },
+        });
+      case "DEVICE_NOT_FOUND_FOR_LIST":
+        return ({
+          event: "DEVICE_NOT_FOUND_FOR_LIST",
+          message: "Device not found for that list",
+          payload: {
+            ...data,
+          },
+        });
+
       default:
         throw new Error("Event not found");
     }
