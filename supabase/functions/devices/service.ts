@@ -1,16 +1,32 @@
 import { SupabaseClient } from "jsr:@supabase/supabase-js@2";
 import { DeviceRepository } from "../_repositories/device.ts";
 import { DEVICE_STATUS } from "../_shared/constants.ts";
-import { UserRepository } from "../_repositories/user.ts";
 import { BranchRepository } from "../_repositories/branch.ts";
+import { UserRepository } from "../_repositories/user.ts";
 import { DEFAULT_LIST } from "../_configs/default.ts";
+import {
+  DEVICE_EVENTS,
+  DeviceErrorMessage,
+  DeviceErrorResponseByEvent,
+  DeviceEventError,
+  DeviceEventSuccess,
+  DeviceResponsePayload,
+  DeviceSuccessMessage,
+  DeviceSuccessResponseByEvent,
+} from "./types.ts";
+import { ERROR_TYPE } from "../custom.types.ts";
+import { BaseService } from "../_shared/base-service.ts";
 
-export default class DeviceService {
+export default class DeviceService extends BaseService<
+  DeviceSuccessResponseByEvent<DeviceEventSuccess>,
+  DeviceErrorResponseByEvent<DeviceEventError>
+> {
   private deviceRepository: DeviceRepository;
   private userRepository: UserRepository;
   private branchRepository: BranchRepository;
 
   constructor(supabaseClient: SupabaseClient) {
+    super();
     this.deviceRepository = new DeviceRepository(supabaseClient);
     this.userRepository = new UserRepository(supabaseClient);
     this.branchRepository = new BranchRepository(supabaseClient);
@@ -18,107 +34,73 @@ export default class DeviceService {
 
   deleteDevice = async (id: string) => {
     if (!id) {
-      this.getResponseByEvent("DEVICE_NOT_VALID");
+      return this.getErrorResponse(DEVICE_EVENTS.ERROR.DEVICE_NOT_VALID);
     }
 
-    // TODO: see what else should trigger this
-    const devices = await this.deviceRepository.update(
-      id,
-      {
-        status: DEVICE_STATUS.INITIALIZED,
-        code_value: null,
-        code_exp: null,
-        branch_id: null,
-        list_id: null,
-      },
-    );
+    await this.deviceRepository.update(id, {
+      status: DEVICE_STATUS.INITIALIZED,
+      code_value: null,
+      code_exp: null,
+      branch_id: null,
+      list_id: null,
+    });
 
-    return this.getResponseByEvent("DEVICE_UNASSIGNED", { devices });
+    return this.getSuccessResponse(
+      DEVICE_EVENTS.SUCCESS.DEVICE_UNASSIGNED,
+      null,
+    );
   };
 
-  registerDeviceByCode = async (body: {
-    code: string;
-    branch_id: string;
-  }) => {
-    const { code, branch_id: branchId } = body;
+  registerDeviceByCode = async (body: { code: string; branch_id: string }) => {
+    const { code, branch_id } = body;
+
     if (!code) {
-      return this.getResponseByEvent("CODE_NOT_FOUND");
+      return this.getErrorResponse(DEVICE_EVENTS.ERROR.CODE_NOT_FOUND);
     }
 
-    if (!branchId) {
-      return this.getResponseByEvent("BRANCH_ID_NOT_FOUND");
+    if (!branch_id) {
+      return this.getErrorResponse(DEVICE_EVENTS.ERROR.BRANCH_ID_NOT_FOUND);
     }
 
-    const device = await this.deviceRepository.getDeviceByCode(
-      code,
-    );
+    const device = await this.deviceRepository.getDeviceByCode(code);
 
     if (!device) {
-      return this.getResponseByEvent("DEVICE_NOT_FOUND");
+      return this.getErrorResponse(DEVICE_EVENTS.ERROR.DEVICE_NOT_FOUND);
     }
 
     if (device.status === DEVICE_STATUS.ASSIGNED) {
-      return this.getResponseByEvent("DEVICE_ALREADY_ASSIGNED");
+      return this.getErrorResponse(DEVICE_EVENTS.ERROR.DEVICE_ALREADY_ASSIGNED);
     }
 
     const user = await this.userRepository.getAuthUser();
-
     const hasBranch = await this.userRepository.getUserBranches(
       user.id,
-      branchId,
+      branch_id,
     );
 
     if (!hasBranch) {
-      return this.getResponseByEvent("BRANCH_NOT_FOUND");
+      return this.getErrorResponse(DEVICE_EVENTS.ERROR.BRANCH_NOT_FOUND);
     }
 
-    const organization = await this.branchRepository
-      .getOrganizationByBranchId(
-        branchId,
-      );
+    const organization = await this.branchRepository.getOrganizationByBranchId(
+      branch_id,
+    );
 
     if (!organization?.organization_id) {
-      return this.getResponseByEvent("ORGANIZATION_NOT_FOUND");
+      return this.getErrorResponse(DEVICE_EVENTS.ERROR.ORGANIZATION_NOT_FOUND);
     }
 
-    const newDevice = {
+    const updatedDevice = {
       status: DEVICE_STATUS.ASSIGNED,
-      branch_id: branchId,
+      branch_id,
       organization_id: organization.organization_id,
       code_value: null,
       code_exp: null,
     };
 
-    await this.deviceRepository.assignDeviceToBranch(
-      device.id,
-      newDevice,
-    );
+    await this.deviceRepository.assignDeviceToBranch(device.id, updatedDevice);
 
-    return this.getResponseByEvent("DEVICE_ASSIGNED", {});
-  };
-
-  getDevicePlayList = async (deviceId: string) => {
-    // VALIDATE DEVICE BELONGS TO USER ORGANIZATION
-    if (!deviceId) {
-      // TODO: ADD CASE FOR DEVICE INVALID
-      return this.getResponseByEvent("DEVICE_INVALID");
-    }
-
-    const device = await this.deviceRepository.getDeviceById(
-      deviceId,
-    );
-
-    if (!device) {
-      return this.getResponseByEvent("DEVICE_NOT_FOUND");
-    }
-
-    if (device.status !== DEVICE_STATUS.ASSIGNED) {
-      return this.getResponseByEvent("DEVICE_UNASSIGNED");
-    }
-
-    // TODO IF list_id is null return default list else build playlist
-
-    return this.getResponseByEvent("DEVICE_ASSIGNED", {
+    return this.getSuccessResponse(DEVICE_EVENTS.SUCCESS.DEVICE_ASSIGNED, {
       data: {
         type: "PLAY_LIST",
         playlist: DEFAULT_LIST,
@@ -126,109 +108,111 @@ export default class DeviceService {
     });
   };
 
-  getResponseByEvent = (event: string, data?: any) => {
-    switch (event) {
-      case "CODE_NOT_FOUND":
-        return ({
-          event: "CODE_NOT_FOUND",
-          message: "Code not valid, please provide a valid code",
-          payload: {
-            ...data,
-          },
-        });
-      case "BRANCH_NOT_FOUND":
-        return ({
-          event: "BRANCH_NOT_FOUND",
-          message:
-            "Branch not valid, please provide a valid branch to register the device",
-          payload: {
-            ...data,
-          },
-        });
-      case "DEVICE_FOUND":
-        return ({
-          event: "DEVICE_FOUND",
-          message: "Device found",
-          payload: {
-            ...data,
-          },
-        });
-      case "DEVICE_NOT_FOUND":
-        return ({
-          event: "DEVICE_NOT_FOUND",
-          message: "Device not found for that code value",
-          payload: {
-            ...data,
-          },
-        });
-      case "ORGANIZATION_NOT_FOUND":
-        return ({
-          event: "ORGANIZATION_NOT_FOUND",
-          message: "Organization not found for that branch",
-          payload: {
-            ...data,
-          },
-        });
-      case "DEVICE_ALREADY_ASSIGNED":
-        return ({
-          event: "DEVICE_ALREADY_ASSIGNED",
-          message: "This device is already assigned",
-          payload: {
-            ...data,
-          },
-        });
-      case "DEVICE_NOT_VALID":
-        return ({
-          event: "DEVICE_NOT_VALID",
-          message: "Device id not valid",
-          payload: {
-            ...data,
-          },
-        });
-      case "DEVICE_UNASSIGNED":
-        return ({
-          event: "DEVICE_UNASSIGNED",
-          message: "Device unassigned",
-          payload: {
-            ...data,
-          },
-        });
-      case "DEVICE_ASSIGNED":
-        return ({
-          event: "DEVICE_ASSIGNED",
-          message: "Device assigned",
-          payload: {
-            ...data,
-          },
-        });
-      case "DEVICE_INVALID":
-        return ({
-          event: "DEVICE_INVALID",
-          message: "Device id not valid",
-          payload: {
-            ...data,
-          },
-        });
+  getDevicePlayList = async (deviceId: string) => {
+    // VALIDATE DEVICE BELONGS TO USER ORGANIZATION
+    if (!deviceId) {
+      // TODO: ADD CASE FOR DEVICE INVALID
+      return this.getErrorResponse(DEVICE_EVENTS.ERROR.DEVICE_INVALID);
+    }
 
-      case "LIST_INVALID":
-        return ({
-          event: "LIST_INVALID",
-          message: "List id not valid",
-          payload: {
-            ...data,
+    const device = await this.deviceRepository.getDeviceById(deviceId);
+
+    if (!device) {
+      return this.getErrorResponse(DEVICE_EVENTS.ERROR.DEVICE_NOT_FOUND);
+    }
+
+    if (device.status !== DEVICE_STATUS.ASSIGNED) {
+      return this.getErrorResponse(
+        DEVICE_EVENTS.ERROR.DEVICE_NOT_BRANCH_ASSIGNED,
+      );
+    }
+
+    return this.getSuccessResponse(DEVICE_EVENTS.SUCCESS.DEVICE_ASSIGNED, {
+      data: {
+        type: "PLAY_LIST",
+        playlist: DEFAULT_LIST,
+      },
+    });
+  };
+
+  getErrorResponse = (
+    event: DeviceEventError,
+  ): DeviceErrorResponseByEvent<DeviceEventError> => {
+    switch (event) {
+      case DEVICE_EVENTS.ERROR.DEVICE_NOT_VALID:
+      case DEVICE_EVENTS.ERROR.DEVICE_ALREADY_ASSIGNED:
+      case DEVICE_EVENTS.ERROR.BRANCH_NOT_FOUND:
+      case DEVICE_EVENTS.ERROR.ORGANIZATION_NOT_FOUND:
+      case DEVICE_EVENTS.ERROR.CODE_NOT_FOUND:
+      case DEVICE_EVENTS.ERROR.BRANCH_ID_NOT_FOUND:
+      case DEVICE_EVENTS.ERROR.DEVICE_INVALID:
+      case DEVICE_EVENTS.ERROR.DEVICE_NOT_FOUND:
+      case DEVICE_EVENTS.ERROR.DEVICE_NOT_BRANCH_ASSIGNED:
+        return {
+          event,
+          payload: null,
+          message: null,
+          error: {
+            type: ERROR_TYPE.ERROR,
+            message: this.getErrorMessages(event),
           },
-        });
-      case "DEVICE_NOT_FOUND_FOR_LIST":
-        return ({
-          event: "DEVICE_NOT_FOUND_FOR_LIST",
-          message: "Device not found for that list",
-          payload: {
-            ...data,
-          },
-        });
+        } as DeviceErrorResponseByEvent<DeviceEventError>;
 
       default:
-        throw new Error("Event not found");
+        return this.assertNever(event);
     }
   };
+
+  getSuccessResponse = (
+    event: DeviceEventSuccess,
+    data: DeviceResponsePayload,
+  ): DeviceSuccessResponseByEvent<DeviceEventSuccess> => {
+    switch (event) {
+      case DEVICE_EVENTS.SUCCESS.DEVICE_UNASSIGNED:
+      case DEVICE_EVENTS.SUCCESS.DEVICE_ASSIGNED:
+        return {
+          event,
+          error: null,
+          message: this.getSuccessMessages(event),
+          payload: {
+            ...data,
+          },
+        } as DeviceSuccessResponseByEvent<DeviceEventSuccess>;
+
+      default:
+        return this.assertNever(event);
+    }
+  };
+
+  getErrorMessages(event: DeviceEventError): DeviceErrorMessage {
+    switch (event) {
+      case DEVICE_EVENTS.ERROR.DEVICE_NOT_FOUND:
+        return "Device not found";
+      case DEVICE_EVENTS.ERROR.DEVICE_ALREADY_ASSIGNED:
+        return "Device already assigned";
+      case DEVICE_EVENTS.ERROR.BRANCH_NOT_FOUND:
+        return "Branch not found";
+      case DEVICE_EVENTS.ERROR.ORGANIZATION_NOT_FOUND:
+        return "Organization not found";
+      case DEVICE_EVENTS.ERROR.CODE_NOT_FOUND:
+        return "Code not valid, please provide a valid code";
+      case DEVICE_EVENTS.ERROR.BRANCH_ID_NOT_FOUND:
+        return "Branch id not valid";
+      case DEVICE_EVENTS.ERROR.DEVICE_INVALID:
+        return "Device id not valid";
+      case DEVICE_EVENTS.ERROR.DEVICE_NOT_VALID:
+        return "Device id not valid";
+      case DEVICE_EVENTS.ERROR.DEVICE_NOT_BRANCH_ASSIGNED:
+        return "Device is not assigned to a branch";
+    }
+  }
+
+  getSuccessMessages(event: DeviceEventSuccess): DeviceSuccessMessage {
+    switch (event) {
+      case DEVICE_EVENTS.SUCCESS.DEVICE_ASSIGNED:
+        return "Device assigned";
+      case DEVICE_EVENTS.SUCCESS.DEVICE_UNASSIGNED:
+        return "Device deleted successfully";
+    }
+  }
 }
