@@ -97,29 +97,26 @@ export default class DeviceService {
     return this.getResponseByEvent("DEVICE_ASSIGNED", {});
   };
 
-  getDevicePlayList = async (deviceId: string, listId: string) => {
+  getDevicePlayList = async (deviceId: string) => {
+    // VALIDATE DEVICE BELONGS TO USER ORGANIZATION
     if (!deviceId) {
       // TODO: ADD CASE FOR DEVICE INVALID
       return this.getResponseByEvent("DEVICE_INVALID");
     }
 
-    if (!listId) {
-      // TODO: ADD CASE FOR LIST INVALID
-      return this.getResponseByEvent("LIST_INVALID");
-    }
-
-    const device = await this.deviceRepository.getDeviceByIdAndListId(
+    const device = await this.deviceRepository.getDeviceById(
       deviceId,
-      listId,
     );
 
     if (!device) {
-      return this.getResponseByEvent("DEVICE_NOT_FOUND_FOR_LIST");
+      return this.getResponseByEvent("DEVICE_NOT_FOUND");
     }
 
     if (device.status !== DEVICE_STATUS.ASSIGNED) {
       return this.getResponseByEvent("DEVICE_UNASSIGNED");
     }
+
+    // TODO IF list_id is null return default list else build playlist
 
     return this.getResponseByEvent("DEVICE_ASSIGNED", {
       data: {
